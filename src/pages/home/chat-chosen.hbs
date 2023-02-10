@@ -88,7 +88,7 @@ messages:
     <link rel="stylesheet" href="../../index.pcss"/>
 </head>
 <body>
-    <div class="container">
+    <main class="container">
         <div class="chat">
             <div class ="chat-list">
                 <div class="chat-list__header">
@@ -111,7 +111,7 @@ messages:
                             {{#if notification}}
                                 {{> notification/notification class="chat-notification" quantity="1"}}
                             {{/if}}
-                            {{> svgIcon/svgIcon id="triple-dots-vertical"}}
+                            {{> menu/deleteChat}}
                         </div>
                         <div class="chat-info__bottom">
                             {{#if isReaden}}
@@ -159,5 +159,5 @@ messages:
                 </form>
             </div>
         </div>
-    </div>
+    </main>
 </body>
