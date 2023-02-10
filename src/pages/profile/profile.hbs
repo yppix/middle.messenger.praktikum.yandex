@@ -21,17 +21,17 @@ person:
                {{> avatarChat/avatarChat class="profile-avatar" }}
             </div>
             <div class="profile-view__fieldset">
-                {{#each person}}
-                   <div class="profile-view__item">
-                       <p class="profile-view__name"> name </p>
-                       {{this}}
-                   </div>
-                {{/each}}
+            {{#each person}}
+                <div class="profile-view__item">
+                    <p class="profile-view__name"> {{@key}} </p>
+                    <p class="profile-view__value"> {{this}} </p>
+                </div>
+            {{/each}}
             </div>
         </div>
         <div class="profile__buttons">
-            {{> button/buttonLink location="location.href='./index.hbs'" label="Edit" class="profile-button__edit"}}
-            {{> button/buttonLink location="location.href='./index.hbs'" label="Change password" class="profile-button__password"}}
+            {{> button/buttonLink location="location.href='./edit.hbs'" label="Edit" class="profile-button__edit"}}
+            {{> button/buttonLink location="location.href='./change-password.hbs'" label="Change password" class="profile-button__password"}}
         </div>
     </div>
 </body>
