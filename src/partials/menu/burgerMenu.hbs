@@ -1,0 +1,28 @@
+<div class="hamburger-menu">
+    {{> field/checkbox id="hamburger-menu__toggle"}}
+    <label class="hamburger-menu__btn" for="hamburger-menu__toggle">
+      <span></span>
+    </label>
+    <ul class="hamburger-menu__list">
+      <li class="hamburger-menu__li">
+        {{> svgIcon/svgIcon id="new-chat"}}
+        <a class="hamburger-menu__item" href="#">New chat</a>
+      </li>
+      <li class="hamburger-menu__li">
+        {{> svgIcon/svgIcon id="new-group-chat"}}
+        <a class="hamburger-menu__item" href="#">New group chat</a>
+      </li>
+      <li class="hamburger-menu__li">
+        {{> svgIcon/svgIcon id="edit-profile"}}
+        <a class="hamburger-menu__item" href="../../pages/profile/profile">Edit profile</a>
+      </li>
+      <li class="hamburger-menu__li">
+        {{> svgIcon/svgIcon id="settings"}}
+        <a class="hamburger-menu__item" href="#">Settings</a>
+      </li>
+      <li class="hamburger-menu__li">
+        {{> svgIcon/svgIcon id="logout"}}
+        <a class="hamburger-menu__item" href="#">Logout</a>
+      </li>
+    </ul>
+</div>
