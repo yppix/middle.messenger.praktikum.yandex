@@ -15,23 +15,28 @@ person:
 </head>
 <body>
     <div class="container">
-    <div class="profile">
-        <div class="profile-view">
-            <div class="profile-view__avatar">
-               {{> avatarChat/avatarChat class="profile-avatar" }}
-            </div>
-            <div class="profile-view__fieldset">
-            {{#each person}}
-                <div class="profile-view__item">
-                    <p class="profile-view__name"> {{@key}} </p>
-                    <p class="profile-view__value"> {{this}} </p>
+        <div class="profile">
+            <div class="profile-view">
+                <div class="profile-view__avatar">
+                   {{> avatarChat/avatarChat class="profile-avatar" }}
                 </div>
-            {{/each}}
+                <div class="profile-view__fieldset">
+                {{#each person}}
+                    <div class="profile-view__item">
+                        <p class="profile-view__name"> {{@key}} </p>
+                        <p class="profile-view__value"> {{this}} </p>
+                    </div>
+                {{/each}}
+                </div>
             </div>
-        </div>
-        <div class="profile__buttons">
-            {{> button/buttonLink location="location.href='./edit.hbs'" label="Edit" class="profile-button__edit"}}
-            {{> button/buttonLink location="location.href='./change-password.hbs'" label="Change password" class="profile-button__password"}}
+            <div class="profile__buttons">
+                <a href="./edit.hbs">
+                   {{> button/button label="Edit" class="profile-button__edit"}}
+                </a>
+                <a href="./change-password.hbs">
+                   {{> button/button label="Change password" class="profile-button__password"}}
+                </a>
+            </div>
         </div>
     </div>
 </body>
