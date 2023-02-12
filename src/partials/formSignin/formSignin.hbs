@@ -1,0 +1,13 @@
+<form action={{action}} method={{method}} class={{class}}>
+{{> titleForm/titleForm class="form__title" titleText="Sign in"}}
+
+<div class="form-signin__fieldset">
+{{> field/field name="login" type="text" placeholder="Login" class="form__input"}}
+{{> field/field name="password" type="password" placeholder="Password" class="form__input"}}
+</div>
+
+{{> button/button label="Enter" class="form-signin__button"}}
+
+{{> titleFormFooter/titleFormFooter class="form__title-footer" titleText="Haven`t registered yet?" link="./pages/entering/signup.hbs" linkClass="form__link-footer" linkText = "Sign up"}}
+
+</form>

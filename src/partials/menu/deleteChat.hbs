@@ -1,0 +1,14 @@
+<div class="delete-chat">
+    <input id="delete-chat__toggle" type="checkbox" />
+    <label class="delete-chat__btn" for="delete-chat__toggle">
+       {{> svgIcon/svgIcon id="triple-dots-vertical
+       "}}
+    </label>
+
+    <div class="delete-chat__block">
+        {{> svgIcon/svgIcon id="trash"}}
+         <span class="delete-chat__item">Delete chat</span>
+    </div>
+
+    {{> modal/modalError class="delete-chat__modal" classText="delete-chat__text" textModal="Are you sure you want to delete chat with Name?" }}
+</div>

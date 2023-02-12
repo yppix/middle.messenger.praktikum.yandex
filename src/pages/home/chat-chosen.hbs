@@ -1,0 +1,163 @@
+---
+chat:
+  - namePerson: Test 1
+    textPerson: Katz Got Your Tongue
+    notification: false
+    time: '13:55'
+    isReaden: false
+    isChosen: false
+  - namePerson: Test 2
+    textPerson: SproutCore Blog
+    notification: true
+    time: '13:55'
+    isReaden: true
+    isChosen: false
+  - namePerson: Test 3
+    textPerson: Katz Got Your Tongue
+    notification: false
+    time: '13:55'
+    isReaden: false
+    isChosen: false
+  - namePerson: Test 4
+    textPerson: Katz Got Your Tongue
+    notification: false
+    time: '13:55'
+    isReaden: false
+    isChosen: false
+  - namePerson: Test 5
+    textPerson: SproutCore Blog
+    notification: true
+    time: '13:55'
+    isReaden: true
+    isChosen: true
+  - namePerson: Test 6
+    textPerson: Katz Got Your Tongue
+    notification: true
+    time: '13:55'
+    isReaden: true
+    isChosen: false
+  - namePerson: Test 7
+    textPerson: Katz Got Your Tongue
+    notification: false
+    time: '13:55'
+    isReaden: false
+    isChosen: false
+  - namePerson: Test 8
+    textPerson: SproutCore Blog
+    notification: false
+    time: '13:55'
+    isReaden: false
+    isChosen: false
+  - namePerson: Test 9
+    textPerson: Katz Got Your Tongue
+    notification: false
+    time: '13:55'
+    isReaden: false
+    isChosen: false
+
+messages:
+  - text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    timeMessage: '19.07.22'
+    isOpponent: true
+    isNotToday: true
+  - text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    timeMessage: '13:22'
+    isOpponent: true
+    isToday: false
+  - text: Lorem ipsum dolor sit amet.
+    timeMessage: '13:22'
+    isOpponent: true
+    isToday: false
+  - text: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    timeMessage: '13:22'
+    isOpponent: false
+    isToday: false
+    isRead: true
+  - text: Lorem ipsum dolor.
+    timeMessage: '13:22'
+    isOpponent: true
+    isToday: false
+
+
+---
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="../../index.pcss"/>
+</head>
+<body>
+    <main class="container">
+        <div class="chat">
+            <div class ="chat-list">
+                <div class="chat-list__header">
+                    {{> menu/burgerMenu }}
+                    {{> chatSearch/chatSearch class="chat-search" action="#" method="get" classText="chat-input" searchPlaceholder="search-here"}}
+                </div>
+                {{#each chat}}
+                    {{#if isChosen}}
+                        <div class="chat-list__person" style="background-color: var(--orange)">
+                    {{else}}
+                        <div class="chat-list__person">
+                    {{/if}}
+                    {{> avatarChat/avatarChat class="chat-avatar"}}
+                    <div class="chat-nameArea">
+                        <p class="chat-nameArea__name">{{this.namePerson}}</p>
+                        <p class="chat-nameArea__text">{{this.textPerson}}</p>
+                    </div>
+                    <div class="chat-info">
+                        <div class="chat-info__top">
+                            {{#if notification}}
+                                {{> notification/notification class="chat-notification" quantity="1"}}
+                            {{/if}}
+                            {{> menu/deleteChat}}
+                        </div>
+                        <div class="chat-info__bottom">
+                            {{#if isReaden}}
+                                {{> svgIcon/svgIcon id="double-check"}}
+                            {{else}}
+                                {{> svgIcon/svgIcon id="check"}}
+                            {{/if}}
+                            <p class="chat-info__time">{{this.time}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <div class="chat-view">
+                <div class="chat-view__header">
+                    <div class="chat-view__nameArea">
+                        {{> avatarChat/avatarChat class="chat-avatar"}}
+                        <div class="chat-view__nameArea-info">
+                        <p class="chat-view__nameArea-name">Test 5</p>
+                        <p class="chat-view__nameArea-status">Last seen recently</p>
+                    </div>
+                </div>
+                <div class="chat-view__info">
+                    {{> menu/addMembersMenu }}
+                    {{> menu/infoMenu }}
+                </div>
+                </div>
+                <div class="chat-view__messages">
+                    {{#each messages}}
+                        {{#if isOpponent}}
+                            {{> chatMessage/chatMessage class="message-opponent" classSpan="chat-message__text" classTime="chat-message__time" visibility="is-read-hidden"}}
+                        {{else}}
+                            {{> chatMessage/chatMessage class="message-personal" classTime="chat-message__time" classSpan="chat-message__text" visibility="is-read-visible"}}
+                        {{/if}}
+                        {{#if isNotToday}}
+                         <p class="chat-view__date">13 august</p>
+                        {{/if}}
+                    {{/each}}
+                </div>
+                <form class="chat-message__input" action="#" method="post">
+                    <label class="send-label">
+                        {{> svgIcon/svgIcon id="send"}}
+                        {{> field/field name="message" type="text" placeholder="Type" class="chat-message__input-field"}}
+                    </label>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>

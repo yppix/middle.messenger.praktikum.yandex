@@ -1,0 +1,46 @@
+.chat-message {
+    width: 338px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-bottom: 16px;
+}
+
+.message-opponent {
+    background-color: var(--nude);
+    align-self: self-start;
+}
+
+.message-personal {
+    background-color: var(--orange);
+    align-self: self-end;
+}
+
+.chat-message__text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--black);
+}
+
+.chat-message__time {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 21px;
+    color: var(--dark-grey);
+    text-align: end;
+    margin: 0;
+    display: flex;
+    justify-content: end;
+    place-items: center;
+}
+
+.is-read-hidden{
+    display: none;
+}
+
+.is-read-visible{
+    display: block;
+}

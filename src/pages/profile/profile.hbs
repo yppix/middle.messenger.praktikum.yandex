@@ -1,0 +1,42 @@
+---
+person:
+    name: Test 1
+    login: testovich
+    email: test@mail.ru
+    surname: Testov
+    phone: 88889998899
+---
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="../../index.pcss"/>
+</head>
+<body>
+    <main class="container">
+        <div class="profile">
+            <div class="profile-view">
+                <div class="profile-view__avatar">
+                   {{> avatarChat/avatarChat class="profile-avatar" }}
+                </div>
+                <div class="profile-view__fieldset">
+                {{#each person}}
+                    <div class="profile-view__item">
+                        <p class="profile-view__name"> {{@key}} </p>
+                        <p class="profile-view__value"> {{this}} </p>
+                    </div>
+                {{/each}}
+                </div>
+            </div>
+            <div class="profile__buttons">
+                <a href="./edit.hbs">
+                   {{> button/button label="Edit" class="profile-button__edit"}}
+                </a>
+                <a href="./change-password.hbs">
+                   {{> button/button label="Change password" class="profile-button__password"}}
+                </a>
+            </div>
+        </div>
+    </main>
+</body>

@@ -1,0 +1,30 @@
+<div class="info-menu">
+    <input id="info-menu__toggle" type="checkbox" />
+    <label class="info-menu__btn" for="info-menu__toggle">
+       {{> svgIcon/svgIcon id="info"}}
+    </label>
+
+    <div class="info-menu__block">
+        <label class="info-menu__btn-close" for="info-menu__toggle">
+           {{> svgIcon/svgIcon id="close"}}
+        </label>
+       <form class="chat-group__load-avatar" action="#" method="post">
+            {{> field/file id="chat-group__load-avatar-input" name="group-avatar" class="load-avatar-input"}}
+            <label class="load" for="chat-group__load-avatar-input">
+               {{> svgIcon/svgIcon id="upload"}}
+            </label>
+        </form>
+        {{> subtitle/subtitle class="chat-group__name" text="Name"}}
+        <ul class="chat-group__members">
+            <li class="chat-group__members-item">
+               <p class="chat-group__members-name">Test 1</p>
+               {{> svgIcon/svgIcon id="remove-person"}}
+            </li>
+            <li class="chat-group__members-item">
+               <p class="chat-group__members-name">Test 2</p>
+               {{> svgIcon/svgIcon id="remove-person"}}
+            </li>
+        </ul>
+    </div>
+
+</div>

@@ -1,0 +1,18 @@
+<form action={{action}} method={{method}} class={{class}}>
+{{> titleForm/titleForm class="form__title" titleText="Sign up"}}
+
+<div class="form-signup__fieldset">
+{{> field/field name="first_name" type="text" placeholder="Name" class="form__input"}}
+{{> field/field name="second_name" type="text" placeholder="Surname" class="form__input"}}
+{{> field/field name="login" type="text" placeholder="Login" class="form__input"}}
+{{> field/field name="email" type="email" placeholder="Email" class="form__input-error"}}
+{{> errorLabel/errorLabel class="error-message" errorMessage="Field email is incorrect" }}
+{{> field/field name="password" type="password" placeholder="Password" class="form__input"}}
+{{> field/field name="phone" type="phone" placeholder="Phone" class="form__input"}}
+</div>
+
+{{> button/button label="Enter" class="form-signup__button button"}}
+
+{{> titleFormFooter/titleFormFooter class="form__title-footer" titleText="Haven`t registered yet?" link="../../index.hbs" linkClass="form__link-footer" linkText = "Sign in"}}
+
+</form>
