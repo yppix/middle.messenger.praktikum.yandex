@@ -1,6 +1,8 @@
 // @ts-ignore
 import { EventBus } from "./EventBus";
 import * as Handlebars from "handlebars";
+import { nanoid } from 'nanoid'
+
 
 class Block {
 
@@ -10,6 +12,8 @@ class Block {
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update"
   };
+
+  public id = nanoid(6);
   private _meta: { tagName: string; props: any };
   private props: any;
   private eventBus: () => EventBus;
