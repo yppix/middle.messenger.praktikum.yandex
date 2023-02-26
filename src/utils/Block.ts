@@ -1,10 +1,9 @@
-// @ts-ignore
 import { EventBus } from "./EventBus";
 import * as Handlebars from "handlebars";
 import { nanoid } from 'nanoid'
 
 
-class Block {
+class Block <P extends Record<string, any> = any> {
 
   static EVENTS = {
     INIT: "init",
@@ -15,11 +14,11 @@ class Block {
 
   public id = nanoid(6);
   private _meta: { tagName: string; props: any };
-  private props: any;
+  protected props: any;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
 
-  public children: Record<string, Block>;
+  public children: Record<string, Block | Block[]>;
 
   /** JSDoc
    * @param {string} tagName
@@ -36,27 +35,31 @@ class Block {
       props
     };
 
+    this.children = children;
     this.props = this._makePropsProxy(props);
 
     this.eventBus = () => eventBus;
 
     this._registerEvents(eventBus);
+
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(childrenAndProps: any) {
-    const props: Record<string, any> = {};
-    const children: Record<string, Block> = {};
+  _getChildrenAndProps(childrenAndProps: P): { props: P, children: Record<string, Block | Block[]> } {
+    const props: Record<string, unknown> = {};
+    const children: Record<string, Block | Block[]> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
+      if (Array.isArray(value) && value.length > 0 && value.every(v => v instanceof Block)) {
+        children[key as string] = value;
+      } else if (value instanceof Block) {
+        children[key as string] = value;
       } else {
         props[key] = value;
       }
     });
 
-    return { props, children };
+    return {props: props as P, children};
   }
 
   _addEvents() {
@@ -68,7 +71,7 @@ class Block {
   }
 
   _registerEvents(eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -98,7 +101,13 @@ class Block {
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-    Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
+    Object.values(this.children).forEach(child => {
+      if (Array.isArray(child)) {
+        child.forEach(ch => ch.dispatchComponentDidMount());
+      } else {
+        child.dispatchComponentDidMount();
+      }
+    });
   }
 
   private _componentDidUpdate(oldProps: any, newProps: any) {
@@ -107,6 +116,7 @@ class Block {
     }
   }
 
+  // @ts-ignore
   protected componentDidUpdate(oldProps: any, newProps: any) {
     return true;
   }
@@ -136,10 +146,15 @@ class Block {
   }
 
   protected compile(template: string, context: any) {
+
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {
-      contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
+      if (Array.isArray(component)) {
+        contextAndStubs[name] = component.map(child => `<div data-id="${child.id}"></div>`)
+      } else {
+        contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
+      }
     });
 
     const templateDelegate = Handlebars.compile(template);
@@ -150,7 +165,7 @@ class Block {
 
     temp.innerHTML = html;
 
-    Object.entries(this.children).forEach(([_, component]) => {
+    const replaceStub = (component: Block) => {
       const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
 
       if (!stub) {
@@ -160,7 +175,14 @@ class Block {
       component.getContent()?.append(...Array.from(stub.childNodes));
 
       stub.replaceWith(component.getContent()!);
+    }
 
+    Object.entries(this.children).forEach(([_, component]) => {
+      if (Array.isArray(component)) {
+        component.forEach(replaceStub);
+      } else {
+        replaceStub(component);
+      }
     });
 
     return temp.content;

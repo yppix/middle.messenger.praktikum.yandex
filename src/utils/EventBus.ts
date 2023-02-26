@@ -1,4 +1,4 @@
-class EventBus {
+export class EventBus {
   private listeners: Record<string, Array<()=>void>> = {};
   constructor() {
     this.listeners = {};
