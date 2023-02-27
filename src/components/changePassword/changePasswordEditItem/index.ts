@@ -24,7 +24,7 @@ export class ChangePasswordEditItem extends Block {
     this.children.type = new Label({
       className: [this.props.labelClass],
       for: this.props.nameField,
-      message: this.props.valueLabel
+      message: this.props.valueLabel.replace('_', ' ')
     })
 
     this.children.input = new Input({

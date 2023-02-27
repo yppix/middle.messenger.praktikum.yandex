@@ -1,6 +1,7 @@
 import Block from '../../../utils/Block';
 import {PASSWORD_FIELDS} from "../../../static/data/data";
 import {ChangePasswordEditItem} from "../changePasswordEditItem";
+
 interface ChangePasswordMainProps {
   className: Array<string>;
 }

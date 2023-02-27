@@ -16,7 +16,7 @@ export class ProfileViewItem extends Block {
 
     this.children.type = new LabelP({
       className: ["profile-view__name"],
-      message: this.props.typeField
+      message: this.props.typeField.replace('_', ' ')
     })
 
     this.children.value = new LabelP({
