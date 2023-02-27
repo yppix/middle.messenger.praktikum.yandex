@@ -3,5 +3,5 @@
 /.parcel-cache
 /.idea
 /.cache
+.editorconfig
 
-package-lock.json
