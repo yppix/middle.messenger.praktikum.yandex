@@ -1,6 +1,7 @@
 import Block from '../../utils/Block';
-import {Form} from "../../partials/form";
-import {Nav} from "../../partials/navigation";
+import {Form} from "../../components/helpers/form";
+import {Nav} from "../../components/helpers/navigation";
+import {getFormField} from "../../utils/getFormField";
 
 interface SignupProps {
   className: string;
@@ -20,9 +21,15 @@ export class Signup extends Block {
       redirectLink: "signin",
       actionForm: "#",
       methodForm: "post",
+      id: "signup",
       className: ["form-signup"],
       events: {
-        click: () => console.log('Clicked')
+        submit: () => {
+          event!.preventDefault();
+          if (getFormField('signup')) {
+            console.log(getFormField('signup'))
+          }
+        }
       }
     });
 

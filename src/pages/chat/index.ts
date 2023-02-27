@@ -1,8 +1,8 @@
 import Block from '../../utils/Block';
-import {ChatList} from "../../partials/chatList";
+import {ChatList} from "../../components/chat/chatLeft/chatList";
 import {isChosen} from "../../utils/choseChat";
-import {ChatNoMessages} from "../../partials/chatNoMessages";
-import {ChatView} from "../../partials/chatView";
+import {ChatNoMessages} from "../../components/chat/chatRight/chatNoMessages";
+import {ChatView} from "../../components/chat/chatRight/chatView";
 
 interface ChatProps {
   className: string;

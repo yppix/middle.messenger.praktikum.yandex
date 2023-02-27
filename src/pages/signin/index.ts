@@ -1,6 +1,7 @@
 import Block from '../../utils/Block';
-import {Form} from "../../partials/form";
-import {Nav} from "../../partials/navigation";
+import {Form} from "../../components/helpers/form";
+import {Nav} from "../../components/helpers/navigation";
+import {getFormField} from "../../utils/getFormField";
 
 interface SigninProps {
   className: string;
@@ -20,8 +21,14 @@ export class Signin extends Block {
       actionForm: "#",
       methodForm: "post",
       className: ["form-signin"],
+      id: "signin",
       events: {
-        click: () => console.log('Clicked')
+        submit: () => {
+          event!.preventDefault();
+          if (getFormField('signin')) {
+            console.log(getFormField('signin'))
+          }
+        }
       }
     });
 

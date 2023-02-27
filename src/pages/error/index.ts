@@ -1,5 +1,5 @@
 import Block from '../../utils/Block';
-import {ErrorMessage} from "../../partials/errorMessage";
+import {ErrorMessage} from "../../components/errorMessage";
 
 interface ErrorProps {
   className: string;
@@ -16,10 +16,7 @@ export class Error extends Block {
     this.children.errorMessage =new ErrorMessage({
       typeError: this.props.typePage,
       textError: this.props.typePage,
-      className: "error",
-      events: {
-        click: () => console.log('Clicked')
-      }
+      className: "error"
     });
 
     this.element?.classList.add(this.props.className);

@@ -3,4 +3,7 @@ dist/
 .parcel-cache/
 .idea/
 .cache/
-
+static/
+*.*
+!*.css
+!*.pcss

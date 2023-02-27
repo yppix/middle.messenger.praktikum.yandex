@@ -1,5 +1,5 @@
 import Block from '../../utils/Block';
-import {ProfileView} from "../../partials/profileView";
+import {ProfileView} from "../../components/profile/profileView";
 interface ProfileProps {
   className: string;
 }
