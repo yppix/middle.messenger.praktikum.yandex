@@ -14,7 +14,7 @@ interface FormProps {
   formPurpose: string;
   className: Array<string>;
   events: {
-    submit: () => void,
+    submit: (event: SubmitEvent) => void,
   };
 }
 

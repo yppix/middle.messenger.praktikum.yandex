@@ -14,7 +14,7 @@ class Block <P extends Record<string, any> = any> {
 
   public id = nanoid(6);
   private _meta: { tagName: string; props: any };
-  protected props: any;
+  protected props: P;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
 
@@ -26,7 +26,7 @@ class Block <P extends Record<string, any> = any> {
    *
    * @returns {void}
    */
-  constructor(tagName = "div", propsWithChildren: any = {}) {
+  constructor(tagName = "div", propsWithChildren: P) {
     const eventBus = new EventBus();
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
 
@@ -63,7 +63,7 @@ class Block <P extends Record<string, any> = any> {
   }
 
   _addEvents() {
-    const {events = {}} = this.props as { events: Record<string, () =>void> };
+    const {events = {}} = this.props as P &{ events: Record<string, () =>void> };
 
     Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
@@ -110,18 +110,18 @@ class Block <P extends Record<string, any> = any> {
     });
   }
 
-  private _componentDidUpdate(oldProps: any, newProps: any) {
+  private _componentDidUpdate(oldProps: P, newProps: P) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
   // @ts-ignore
-  protected componentDidUpdate(oldProps: any, newProps: any) {
+  protected componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
 
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }
@@ -133,10 +133,20 @@ class Block <P extends Record<string, any> = any> {
     return this._element;
   }
 
+  private _removeEvents(): void {
+    const {events = {}} = this.props;
+
+    Object.keys(events).forEach((eventName: string) => {
+      this._element!.removeEventListener(eventName, events[eventName]);
+    });
+  }
+
   private _render() {
     const template  = this.render();
 
     const fragment = this.compile(template, this.props);
+
+    this._removeEvents();
 
     this._element!.innerHTML = '';
 
@@ -196,19 +206,19 @@ class Block <P extends Record<string, any> = any> {
     return this.element;
   }
 
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: P) {
     // Ещё один способ передачи this, но он больше не применяется с приходом ES6+
     const self = this;
 
     return new Proxy(props, {
       get(target, prop) {
-        const value = target[prop];
+        const value = target[prop as keyof P];
         return typeof value === "function" ? value.bind(target) : value;
       },
       set(target, prop, value) {
         const oldTarget = { ...target }
 
-        target[prop] = value;
+        target[prop as keyof P] = value;
 
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим

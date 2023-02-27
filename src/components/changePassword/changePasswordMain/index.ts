@@ -1,6 +1,6 @@
 import Block from '../../../utils/Block';
 import {PASSWORD_FIELDS} from "../../../static/data/data";
-import {ProfileEditItem} from "../../profile/profileEditItem";
+import {ChangePasswordEditItem} from "../changePasswordEditItem";
 interface ChangePasswordMainProps {
   className: Array<string>;
 }
@@ -27,7 +27,7 @@ export class ChangePasswordMain extends Block {
     });
 
     return result.map(data => {
-      return new ProfileEditItem({
+      return new ChangePasswordEditItem({
         nameField: data[0],
         valueLabel: data[1],
         labelClass: "profile-edit__password-label",

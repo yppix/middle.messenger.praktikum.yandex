@@ -122,10 +122,11 @@ export const CHAT_MESSAGES = [
 
 export const PERSON =
   {
-    name: "Test 1",
+    first_name: "Test 1",
     login: "testovich",
     email: "test@mail.ru",
-    surname: "Testov",
+    second_name: "Testov",
+    display_name: "Testov",
     phone: "88889998899"
   };
 

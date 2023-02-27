@@ -24,7 +24,7 @@ export class Signup extends Block {
       id: "signup",
       className: ["form-signup"],
       events: {
-        submit: () => {
+        submit: (event: SubmitEvent) => {
           event!.preventDefault();
           if (getFormField('signup')) {
             console.log(getFormField('signup'))

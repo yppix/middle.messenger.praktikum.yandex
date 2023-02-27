@@ -26,7 +26,7 @@ export class ChatListHeader extends Block {
       className: ["chat-search"],
       id: "search",
       events: {
-        submit: () => {
+        submit: (event: SubmitEvent) => {
           event!.preventDefault();
           if (getFormField("search")) {
             console.log(getFormField("search"))

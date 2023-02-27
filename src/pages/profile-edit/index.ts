@@ -17,7 +17,7 @@ export class ProfileEdit extends Block {
       methodForm: "post",
       id: "edit-profile",
       events: {
-        submit: () => {
+        submit: (event: SubmitEvent) => {
           event!.preventDefault();
           if (getFormField("edit-profile")) {
             console.log(getFormField("edit-profile"))

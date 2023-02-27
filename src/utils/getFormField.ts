@@ -6,10 +6,14 @@ export function getFormField(typeForm: string): object|boolean {
   let hasErrors: boolean = false;
 
   formElements.forEach((item) => {
-    if (item.classList.contains("invalid")) {
+    if (item.classList.contains("invalid") && !(item as HTMLInputElement).value) {
       _removeError(item)
+    }
+
+    if (item.classList.contains("invalid")) {
       hasErrors = true;
     }
+
 
     _checkField(item);
   })

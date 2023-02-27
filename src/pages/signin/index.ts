@@ -23,7 +23,7 @@ export class Signin extends Block {
       className: ["form-signin"],
       id: "signin",
       events: {
-        submit: () => {
+        submit: (event: SubmitEvent) => {
           event!.preventDefault();
           if (getFormField('signin')) {
             console.log(getFormField('signin'))

@@ -7,7 +7,7 @@ interface ChatSearchFormProps {
   id: string;
   className: Array<string>;
   events?: {
-    submit: () => void,
+    submit: (event: SubmitEvent) => void,
   };
 }
 

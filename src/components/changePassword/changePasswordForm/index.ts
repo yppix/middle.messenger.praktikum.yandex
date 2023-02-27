@@ -8,7 +8,7 @@ interface ChangePasswordFormProps {
   className: Array<string>;
   id: string;
   events?: {
-    submit: () => void,
+    submit: (event: SubmitEvent) => void,
   };
 }
 

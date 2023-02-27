@@ -28,7 +28,7 @@ export class ChatView extends Block {
       actionForm: "#",
       id: "send",
       events: {
-        submit: () => {
+        submit: (event: SubmitEvent) => {
           event!.preventDefault();
           if (getFormField("send")) {
             console.log(getFormField("send"))

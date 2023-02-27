@@ -17,7 +17,7 @@ export class ChangePassword extends Block {
       methodForm: "post",
       id: "change-password",
       events: {
-        submit: () => {
+        submit: (event: SubmitEvent) => {
           event!.preventDefault();
           if (getFormField("change-password")) {
             console.log(getFormField("change-password"))
