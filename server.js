@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static('./dist/'));
 
-app.listen(PORT, function () {
-    console.log(`Chatty listening on port ${PORT}!`);
+app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Chatty listening on port ${PORT}!`);
 });
