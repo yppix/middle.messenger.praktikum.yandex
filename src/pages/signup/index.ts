@@ -2,6 +2,8 @@ import Block from '../../utils/Block';
 import {Form} from "../../components/helpers/form";
 import {Nav} from "../../components/helpers/navigation";
 import {getFormField} from "../../utils/getFormField";
+import AuthController from "../../controllers/AuthController";
+import {SignupData} from "../../apiTypes/authTypes";
 
 interface SignupProps {
   className: string;
@@ -29,6 +31,7 @@ export class Signup extends Block {
           if (getFormField('signup')) {
             console.log(getFormField('signup'))
           }
+          AuthController.signup(getFormField('signup') as SignupData)
         }
       }
     });

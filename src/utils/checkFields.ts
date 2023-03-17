@@ -60,7 +60,7 @@ function _isFirstUpperCase() {
 }
 
 function _isLatinEmail():boolean {
-  const re = /^[\w-@]+$/;
+  const re = /^[\w-@.]+$/;
   return re.test((event!.target! as HTMLInputElement).value);
 }
 

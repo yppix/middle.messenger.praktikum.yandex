@@ -2,9 +2,11 @@ import Block from '../../utils/Block';
 import {Form} from "../../components/helpers/form";
 import {Nav} from "../../components/helpers/navigation";
 import {getFormField} from "../../utils/getFormField";
+import AuthController from "../../controllers/AuthController";
+import {SigninData} from "../../apiTypes/authTypes";
 
 interface SigninProps {
-  className: string;
+  className?: string;
 }
 
 export class Signin extends Block {
@@ -28,6 +30,8 @@ export class Signin extends Block {
           if (getFormField('signin')) {
             console.log(getFormField('signin'))
           }
+          AuthController.signin(getFormField('signin') as SigninData)
+
         }
       }
     });
@@ -43,3 +47,5 @@ export class Signin extends Block {
     return `{{{form}}} {{{nav}}}`;
   }
 }
+
+//const WithAuthController = withControllers(LoginPage, {auth: AuthController})

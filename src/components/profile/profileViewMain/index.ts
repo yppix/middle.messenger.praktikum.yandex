@@ -27,6 +27,10 @@ export class ProfileViewMain extends Block {
   }
 
   private getProfileFields() {
+
+    console.log(this.props)
+    // console.log(this.props[field.name as keyof User])
+
     let result = Object.keys(PERSON).map(function (key) {
       // @ts-ignore
       return [key, PERSON[key]];
