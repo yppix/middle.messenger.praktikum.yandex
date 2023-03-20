@@ -1,4 +1,5 @@
 import Block from './Block';
+import {Routes} from "../static/route/route";
 
 interface BlockConstructable { new(props: any): Block; }
 
@@ -40,7 +41,7 @@ class Route {
   render() {
     if (!this.block) {
       this.block = new this.blockClass({className: "container"});
-
+console.log(this.block)
       render(this.query, this.block);
       return;
     }
@@ -83,7 +84,10 @@ class Router {
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
 
+    console.log(route)
+
     if (!route) {
+      this.go(Routes.NotFound);
       return;
     }
 
