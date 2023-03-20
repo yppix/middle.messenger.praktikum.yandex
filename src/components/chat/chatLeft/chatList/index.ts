@@ -22,7 +22,7 @@ export class ChatList extends Block {
       className: ["chat-list__header"]
     });
 
-    if (!this.props.isLoading) {
+    if (this.props.list) {
       this.children.chats = this.createChats();
     }
 
@@ -35,21 +35,18 @@ export class ChatList extends Block {
   }
 
   render() {
-    return `{{{header}}} {{#if isLoading}} {{{helper}}} {{/if}} {{#each chats }} {{{this}}} {{/each}}`;
+    if (this.props.list) {
+      return `{{{header}}} {{#each chats }} {{{this}}} {{/each}}`;
+    } else {
+      return `{{{header}}} {{{helper}}} `;
+    }
+
   }
 
   // @ts-ignore
   protected componentDidUpdate(oldProps: ChatListProps, newProps: ChatListProps): boolean {
-
-    console.log('chats')
-    console.log(oldProps)
-    console.log(newProps)
-    console.log(this.children.chats)
-
     // @ts-ignore
-      if (newProps.list) {
-      // @ts-ignore
-      newProps.isLoading = false;
+    if (newProps.list) {
       this.children.chats = this.createChats();
       return true;
     }
@@ -58,20 +55,20 @@ export class ChatList extends Block {
 
   private createChats() {
     return this.props.list.map((data: { title: any; last_message: any; unread_count: number; id: number; }) => {
-        return new ChatListPerson({
-          namePerson: data.title,
-          textPerson: data.last_message?.content ? data.last_message?.content : 'no new message',
-          notification: data.unread_count,
-          time: '00:00',
-          id: data.id,
-          isReaden: data.unread_count === 0,
-          className: ["chat-list__person"],
-          events: {
-            click: () => {
-              ChatsController.selectChat(data.id)
-            }
+      return new ChatListPerson({
+        namePerson: data.title,
+        textPerson: data.last_message?.content ? data.last_message?.content : 'no new message',
+        notification: data.unread_count,
+        time: '00:00',
+        id: data.id,
+        isReaden: data.unread_count === 0,
+        className: ["chat-list__person"],
+        events: {
+          click: () => {
+            ChatsController.selectChat(data.id)
           }
-        });
-      })
+        }
+      });
+    })
   }
 }

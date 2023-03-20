@@ -29,9 +29,6 @@ window.addEventListener('DOMContentLoaded', async () => {
       isProtectedRoute = false;
       break;
   }
-  console.log('isProtectedRoute')
-
-  console.log(isProtectedRoute)
 
   try {
     await AuthController.fetchUser();

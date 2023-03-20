@@ -36,9 +36,7 @@ export class Chat extends Block {
   }
 }
 export const ChatListData = withStore((state) => {
-  const chatData = { ...state.chats } as PropsWithChat;
-  chatData.isLoading = state.chats?.isLoading ? state.chats?.isLoading : true;
-  return chatData;
+  return { ...state.chats } as PropsWithChat;
 })(ChatList);
 
 export const ChatViewData = withStore((state: State) => ({selectedChatId: state.selectedChatId}))(ChatView);

@@ -41,7 +41,7 @@ class Route {
   render() {
     if (!this.block) {
       this.block = new this.blockClass({className: "container"});
-console.log(this.block)
+
       render(this.query, this.block);
       return;
     }
@@ -66,10 +66,6 @@ class Router {
 
   public use(pathname: string, block: BlockConstructable) {
     const route = new Route(pathname, block, this.rootQuery);
-    console.log('use')
-    console.log(route)
-    console.log(this.rootQuery)
-    console.log(this.routes)
 
     this.routes.push(route);
 
@@ -88,8 +84,6 @@ class Router {
 
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
-
-    console.log(route)
 
     if (!route) {
       this.go(Routes.NotFound);
