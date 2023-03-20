@@ -9,7 +9,9 @@ interface LabelForInputProps {
   typeInside: string;
   className: Array<string>;
   classNameInside?: string;
-
+  events?: {
+    click: () => void,
+  };
 }
 
 export class LabelStaticInside extends Block {

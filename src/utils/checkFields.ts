@@ -1,3 +1,5 @@
+import {Routes} from "../static/route/route";
+
 const ERRORS: Record<string, string> = {
   "empty": " can not be empty.",
   "min": " must contain more than ",
@@ -9,7 +11,9 @@ const ERRORS: Record<string, string> = {
   "email": " should be correct.",
   "name": " should consist of cyrillic or latin alphabet, may contain '-'.",
   "firstUpperCase": " should start with uppercase.",
-  "phone": " should be correct."
+  "phone": " should be correct.",
+  "id": " should consist of numbers",
+  "newChat": " should consist of '-', numbers and letters"
 };
 
 function _addError(errorField: string, errorType: string, errorText: string = "") {
@@ -19,7 +23,10 @@ function _addError(errorField: string, errorType: string, errorText: string = ""
   const label = document.createElement("label");
 
   label.setAttribute("for", errorField);
-  label.setAttribute("class", "error-message");
+
+  window.location.pathname === Routes.ProfileEdit
+    ? label.setAttribute("class", "error-message-edit")
+    : label.setAttribute("class", "error-message");
 
   errorField = errorField.replace('_', ' ')
 
@@ -94,9 +101,29 @@ function _isOnlyNumbers():boolean {
   return re.test((event!.target! as HTMLInputElement).value);
 }
 
+function _isOnlyNumbersAndLetters():boolean {
+  const re = /^[A-Za-z0-9-]+$/;
+  return re.test((event!.target! as HTMLInputElement).value);
+}
+
 export function checkField(nameField: string) {
+
   if (_isEmpty()) {
     _addError(nameField, "empty");
+    return;
+  }
+
+  if(nameField === "user_id") {
+    if(!_isOnlyNumbers()) {
+      _addError(nameField, "id");
+    }
+    return;
+  }
+
+  if(nameField === "new-chat") {
+    if(!_isOnlyNumbersAndLetters()) {
+      _addError(nameField, "newChat");
+    }
     return;
   }
 

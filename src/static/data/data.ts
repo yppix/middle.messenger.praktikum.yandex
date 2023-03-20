@@ -132,7 +132,6 @@ export const PERSON =
 
 export const PASSWORD_FIELDS =
   {
-    password: "Password",
     oldPassword: "Old password",
     newPassword: "New password",
   };

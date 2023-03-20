@@ -1,8 +1,8 @@
 import Block from '../../../utils/Block';
-import {PERSON} from "../../../static/data/data";
-import {Input} from "../../helpers/field";
-import {LabelStaticInside} from "../../helpers/labelStaticInside";
 import {ProfileEditItem} from "../profileEditItem";
+import {UserProfileFields} from "../../../apiTypes/authTypes";
+import {ProfileAvatarForm} from "../profileAvatarForm";
+
 interface ProfileEditMainProps {
   className: Array<string>;
 }
@@ -13,18 +13,10 @@ export class ProfileEditMain extends Block {
   }
 
   init() {
-    this.children.avatar = new Input ({
-      id: "profile__load-avatar-input",
-      nameInput: "avatar",
-      className: ["load-avatar-input"],
-      typeInput: "file",
-    })
-
-    this.children.labelFile = new LabelStaticInside ({
-      for: "profile__load-avatar-input",
-      svgId : "upload-big",
-      typeInside: "svg",
-      className: ["load-avatar"]
+    this.children.avatar = new ProfileAvatarForm ({
+      id: "form-load-avatar",
+      methodForm: "post",
+      actionForm: "#"
     })
 
     this.children.fields = this.getProfileEditFields();
@@ -34,7 +26,7 @@ export class ProfileEditMain extends Block {
 
   render() {
     return `<div class="profile-view__avatar">
-              <div class="profile-avatar">{{{avatar}}} {{{labelFile}}}</div>
+              <div class="profile-avatar">{{{avatar}}}</div>
             </div>
             <div class="profile-view__fieldset-edit">
             {{#each fields}}
@@ -44,17 +36,15 @@ export class ProfileEditMain extends Block {
   }
 
   private getProfileEditFields() {
-    let result = Object.keys(PERSON).map(function (key) {
-      // @ts-ignore
-      return [key, PERSON[key]];
-    });
+
+    let result = Object.keys(this.props).filter(item => UserProfileFields.includes(item));
 
     return result.map(data => {
       return new ProfileEditItem({
-        nameField: data[0],
-        valueLabel: data[0],
-        valueField: data[1],
-        placeholderInput: data[0],
+        nameField: data,
+        valueLabel:data,
+        valueField: this.props[data],
+        placeholderInput: data,
         labelClass: "profile-view__item-label",
         inputClass: "profile-view__item-input",
         className: ["profile-view__item-edit"],

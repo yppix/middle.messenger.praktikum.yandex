@@ -1,6 +1,6 @@
 import Block from '../../../utils/Block';
 import {Button} from "../../helpers/button";
-import {renderDOM} from "../../../utils/renderDOM";
+import {Routes} from "../../../static/route/route";
 
 interface ProfileButtonsetProps {
   type: string;
@@ -18,7 +18,17 @@ export class ProfileButtonSet extends Block {
       className: ["button", "profile-button__edit"],
       events: {
         click: () => {
-          renderDOM("editProfile")
+          this.props.router.go(Routes.ProfileEdit);
+          },
+      }
+    });
+
+    this.children.return = new Button({
+      label: "Return",
+      className: ["button", "profile-button__edit"],
+      events: {
+        click: () => {
+          this.props.router.go(Routes.Chats);
         },
       }
     });
@@ -27,16 +37,16 @@ export class ProfileButtonSet extends Block {
       label: "Change password",
       className: ["button", "profile-button__password"],
       events: {
-        click: () => renderDOM("changePassword"),
+        click: () => {
+          this.props.router.go(Routes.Password);
+        },
       }
     });
 
     this.children.save = new Button({
       label: "Save changes",
-      className: ["button", "profile-button__edit"],
-      events: {
-        click: () => renderDOM("profile"),
-      }
+      type: "submit",
+      className: ["button", "profile-button__edit"]
     });
 
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
@@ -44,7 +54,7 @@ export class ProfileButtonSet extends Block {
 
   render() {
     if (this.props.type === "view") {
-      return `{{{editProfile}}} {{{changePassword}}}`;
+      return `{{{editProfile}}} {{{changePassword}}} {{{return}}}`;
     } else {
       return `{{{save}}}`;
     }

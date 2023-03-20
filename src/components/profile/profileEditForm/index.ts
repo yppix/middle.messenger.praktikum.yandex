@@ -1,6 +1,8 @@
 import Block from '../../../utils/Block';
 import {ProfileButtonSet} from "../profileButtonset";
 import {ProfileEditMain} from "../profileEditMain";
+import {withRouter} from "../../../hocs/withRouter";
+import withUser from "../../../hocs/withUser";
 
 interface ProfileEditFormProps {
   actionForm: string;
@@ -18,11 +20,11 @@ export class ProfileEditForm extends Block {
   }
 
   init() {
-    this.children.main = new ProfileEditMain({
+    this.children.main = new ProfileEditData({
       className: ["profile-view"]
     })
 
-    this.children.buttons = new ProfileButtonSet({
+    this.children.buttons = new ProfileButtonEditSetLinks({
       className: ["profile__buttons"],
       type: "edit"
     })
@@ -39,3 +41,7 @@ export class ProfileEditForm extends Block {
   }
 
 }
+
+export const ProfileEditData = withUser(ProfileEditMain);
+
+export const ProfileButtonEditSetLinks = withRouter(ProfileButtonSet);

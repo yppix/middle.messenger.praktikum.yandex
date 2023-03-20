@@ -1,7 +1,6 @@
 import Block from '../../../utils/Block';
 import {Link} from "../link";
 import {renderError} from "../../../utils/renderError";
-import {renderDOM} from "../../../utils/renderDOM";
 
 interface NavProps {
   className: Array<string>;
@@ -33,7 +32,7 @@ export class Nav extends Block {
       linkText: "Chats",
       className: ["link-nav"],
       events: {
-        click: () => renderDOM('chat')
+        click: () => console.log('chat')
       }
     });
 

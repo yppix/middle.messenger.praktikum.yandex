@@ -6,7 +6,7 @@ import {ChatListInfo} from "../chatListInfo";
 interface ChatListPersonProps {
   namePerson: string;
   textPerson: string;
-  notification: boolean;
+  notification: number;
   time: string;
   isReaden: boolean;
   id?: number;

@@ -8,8 +8,8 @@ interface InputProps {
   id?: string;
   value?: string;
   events?: {
-    blur: () => void
-    focus: () => void
+    blur?: () => void
+    focus?: () => void
   };
 }
 

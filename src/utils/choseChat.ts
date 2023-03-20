@@ -1,4 +1,5 @@
 import {CHATS} from "../static/data/data";
+import store from "./Store";
 
 export function choseChat(id: number): void {
   const chatChosen = CHATS.find(element => element.id === id);
@@ -11,12 +12,13 @@ export function choseChat(id: number): void {
 }
 
 export function isChosen():boolean {
-  const chatChosen = CHATS.findIndex(element => element.isChosen);
-  if (chatChosen === -1) {
-    return false;
+  const chatChosen = store.getState();
+  chatChosen.selectedChatId;
+  if (chatChosen.selectedChatId) {
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 export function getChosenChat(): any {

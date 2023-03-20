@@ -2,8 +2,10 @@ import {SigninData, SignupData} from "../apiTypes/authTypes";
 import router from "../utils/Router";
 import store from "../utils/Store";
 import {AuthAPI} from "../api/AuthAPI";
+import {Routes} from "../static/route/route";
+import MessagesController from "./MessagesController";
 
-class AuthController {
+export class AuthController {
   private readonly api: AuthAPI;
 
   constructor() {
@@ -15,11 +17,9 @@ class AuthController {
 
       await this.fetchUser();
 
-      router.go('/profile');
+      router.go(Routes.Profile);
     } catch (e: any) {
-      store.set('user.error', (e as Error).message)
-
-      console.error(e);
+      store.set('user.error', (e as Error))
     }
   }
 
@@ -29,11 +29,9 @@ class AuthController {
 
       await this.fetchUser();
 
-      //router.go('/profile');
+      router.go(Routes.Profile);
     } catch (e: any) {
-      store.set('user.error', (e as Error).message)
-
-      console.error(e.message);
+      store.set('user.error', (e as Error))
     }
   }
 
@@ -54,12 +52,13 @@ class AuthController {
 
       store.set('user', undefined)
 
-      router.go('/');
+      MessagesController.closeAll();
+
+      store.set("chats", undefined);
+
+      router.go(Routes.Index);
     } catch (e: any) {
-
-      store.set('user.error', (e as Error).message)
-
-      console.error(e.message);
+      store.set('user.error', (e as Error))
     }
   }
 }

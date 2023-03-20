@@ -6,11 +6,9 @@ interface BlockConstructable { new(props: any): Block; }
 
 
 export function withStore(mapStateToProps: (state: any) => any) {
-  let propsFromState: any;
+  let previousState: any;
 
   return function wrap(Component: BlockConstructable){
-    let previousState: any;
-
 
     return class WithStore extends Component {
 
@@ -22,7 +20,7 @@ export function withStore(mapStateToProps: (state: any) => any) {
         store.on(StoreEvents.UPDATED, () => {
           const stateProps = mapStateToProps(store.getState());
 
-          if(isEqual(propsFromState, stateProps)) {
+          if(isEqual(previousState, stateProps)) {
             return;
           }
 

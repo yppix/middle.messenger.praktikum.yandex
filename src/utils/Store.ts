@@ -3,21 +3,25 @@ import { EventBus } from './EventBus';
 import {User} from "../apiTypes/authTypes";
 import {Chat} from "../apiTypes/chatTypes";
 import {Profile} from "../apiTypes/userTypes";
+import {Message} from "../controllers/MessagesController";
 
 export enum StoreEvents {
   UPDATED = 'updated'
 }
 
 // @ts-ignore
-interface State {
+export interface State {
   user?: {
     data?: User;
     error?: string;
     isLoading?: boolean;
   };
-  chats?: Chat[];
+  chats?: {
+    list: Chat[],
+    isLoading: boolean
+  };
   selectedChatId?: number;
-  //messages?: Record<number, Message[]>,
+  messages?: Record<number, Message[]>,
   userSearch: Profile[];
 }
 

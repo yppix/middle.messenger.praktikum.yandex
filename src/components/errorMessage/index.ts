@@ -1,4 +1,3 @@
-import {renderDOM} from "../../utils/renderDOM";
 import Block from "../../utils/Block";
 import { Subtitle } from "../helpers/subtitle";
 import {Title} from "../helpers/title";
@@ -44,7 +43,7 @@ export class ErrorMessage extends Block {
       linkText: "Main page",
       className: ["link-nav"],
       events: {
-        click: () => renderDOM('signin')
+        click: () => console.log('signin')
       }
     });
 

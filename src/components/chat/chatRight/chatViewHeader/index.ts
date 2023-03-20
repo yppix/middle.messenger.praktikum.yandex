@@ -2,10 +2,10 @@ import Block from '../../../../utils/Block';
 import {ChatHelper} from "../../chatHelper";
 import {ChatListPersonNamearea} from "../../chatLeft/chatListPersonNamearea";
 import {ChatViewInfo} from "../chatViewInfo";
-import {getChosenChat} from "../../../../utils/choseChat";
 
 interface ChatViewHeaderProps {
   className: Array<string>;
+  selectedChatId?: number;
   namePerson?: string;
   textPerson?:string;
 }
@@ -16,8 +16,6 @@ export class ChatViewHeader extends Block {
   }
 
   init() {
-    this.getHeaderProps();
-
     this.children.avatar = new ChatHelper({
       className: ["chat-avatar"]
     });
@@ -30,7 +28,8 @@ export class ChatViewHeader extends Block {
 
 
     this.children.info = new ChatViewInfo({
-      className: ["chat-view__info"]
+      className: ["chat-view__info"],
+      selectedChatId: this.props.selectedChatId
     });
 
     this.props.className.forEach((element: string) => this.element!.classList.add(element))
@@ -38,11 +37,5 @@ export class ChatViewHeader extends Block {
 
   render() {
     return ` <div class="chat-view__nameArea"> {{{avatar}}} {{{namearea}}}</div> <div class="chat-view__info">{{{info}}}</div>`;
-  }
-
-  private getHeaderProps():void {
-    const chosenChat = getChosenChat();
-    this.props.namePerson = chosenChat.namePerson;
-    this.props.textPerson = chosenChat.textPerson;
   }
 }

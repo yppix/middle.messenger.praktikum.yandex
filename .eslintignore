@@ -4,3 +4,4 @@ dist/
 .parcel-cache/
 .idea/
 .cache/
+handlebars.config.js

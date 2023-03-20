@@ -1,21 +1,21 @@
 import BaseAPI from './BaseAPI';
-import {Chat} from "../apiTypes/chatTypes";
 import {User} from "../apiTypes/authTypes";
+import {Chat} from "../apiTypes/chatTypes";
 
 export class ChatAPI extends BaseAPI {
   constructor() {
     super('/chats');
   }
 
-  read(): Promise<Chat[]> {
-    return this.http.get('/');
+  read(data?: Record<string, string | number>): Promise<Chat[]> {
+    return this.http.get("/", data);
   }
 
   create(title: string) {
     return this.http.post("/", {title});
   }
 
-  delete(identifier: string): Promise<unknown> {
+  delete(identifier: number): Promise<unknown> {
     return this.http.delete("/", {chatId: identifier});
   }
 
@@ -25,6 +25,10 @@ export class ChatAPI extends BaseAPI {
 
   addUsers(id: number, users: number[]): Promise<unknown> {
     return this.http.put('/users', { users, chatId: id });
+  }
+
+  deleteUsers(id: number, users: number[]): Promise<unknown> {
+    return this.http.delete('/users', { users, chatId: id });
   }
 
   async getToken(id: number): Promise<string> {

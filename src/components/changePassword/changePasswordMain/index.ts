@@ -1,6 +1,7 @@
 import Block from '../../../utils/Block';
 import {PASSWORD_FIELDS} from "../../../static/data/data";
 import {ChangePasswordEditItem} from "../changePasswordEditItem";
+import {Label} from "../../helpers/label";
 
 interface ChangePasswordMainProps {
   className: Array<string>;
@@ -18,7 +19,20 @@ export class ChangePasswordMain extends Block {
   }
 
   render() {
-    return `{{#each fields}} {{{this}}} {{/each}}`;
+    return `{{#each fields}} {{{this}}} {{/each}}
+    {{#if error}} {{{errorLabel}}} {{/if}}
+    `;
+  }
+
+  // @ts-ignore
+  protected componentDidUpdate(oldProps: ChangePasswordMainProps, newProps: ChangePasswordMainProps): boolean {
+    if(this.props.error) {
+      this.children.errorLabel = new Label({
+        message: this.props.error['reason'],
+        className: ['error-message-password']
+      })
+      return true;
+    }
   }
 
   private getChangePasswordEditFields() {

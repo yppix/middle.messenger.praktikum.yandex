@@ -3,7 +3,7 @@ import router from "../utils/Router";
 import store from "../utils/Store";
 import {Profile, ProfilePassword, ProfileSearch} from "../apiTypes/userTypes";
 
-class ChatController {
+class ProfileController {
   private readonly api: ProfileAPI;
 
   constructor() {
@@ -18,9 +18,7 @@ class ChatController {
 
       router.go('/profile');
     } catch (e: any) {
-      store.set('user.error', (e as Error).message)
-
-      console.error(e);
+      store.set('user.error', (e as Error))
     }
   }
 
@@ -30,7 +28,7 @@ class ChatController {
 
       store.set("user.data", user);
     } catch (e: any) {
-      store.set('user.error', (e as Error).message)
+      store.set('user.error', (e as Error))
     }
   }
 
@@ -40,7 +38,7 @@ class ChatController {
 
       store.set("user.data", user);
     } catch (e: any) {
-      store.set('user.error', (e as Error).message)
+      store.set('user.error', e as Error)
     }
   }
 
@@ -55,4 +53,4 @@ class ChatController {
 
 }
 
-export default new ChatController();
+export default new ProfileController();

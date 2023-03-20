@@ -3,6 +3,7 @@ import {Button} from "../button";
 import {Fieldset} from "../fieldset";
 import {TitleForm} from "../titleForm";
 import {TitleFormFooter} from "../titleFormFooter";
+import {withRouter} from "../../../hocs/withRouter";
 
 interface FormProps {
   actionForm: string;
@@ -30,7 +31,7 @@ export class Form extends Block {
       className: ["form__title"]
     });
 
-    this.children.titleFormFooter = new TitleFormFooter({
+    this.children.titleFormFooter = new TitleLinkRedirect({
       titleText: this.props.formPurpose,
       typeRedirect:this.props.redirectLink,
       className: ["form__title-footer"]
@@ -58,3 +59,5 @@ export class Form extends Block {
     return `{{{titleForm}}} {{{fieldset}}} {{{button}}} {{{titleFormFooter}}}`;
   }
 }
+
+export const TitleLinkRedirect = withRouter(TitleFormFooter);

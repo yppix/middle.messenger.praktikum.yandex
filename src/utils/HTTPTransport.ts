@@ -32,8 +32,11 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get<Response>(path = '/'): Promise<Response> {
-    return this.request<Response>(this.endpoint + path);
+  public get<Response>(path = '/', data?: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: METHOD.GET,
+      data,
+    });
   }
 
   public post<Response = void>(path: string, data?: unknown): Promise<Response> {

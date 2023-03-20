@@ -4,6 +4,10 @@ import {Nav} from "../../components/helpers/navigation";
 import {getFormField} from "../../utils/getFormField";
 import AuthController from "../../controllers/AuthController";
 import {SignupData} from "../../apiTypes/authTypes";
+import withUser from "../../hocs/withUser";
+import {Label} from "../../components/helpers/label";
+import {Routes} from "../../static/route/route";
+import Router from "../../utils/Router";
 
 interface SignupProps {
   className: string;
@@ -20,7 +24,7 @@ export class Signup extends Block {
       titleForm: "Sign up",
       formPurpose: "Have an account?",
       typeForm: "signup",
-      redirectLink: "signin",
+      redirectLink: "/",
       actionForm: "#",
       methodForm: "post",
       id: "signup",
@@ -29,9 +33,9 @@ export class Signup extends Block {
         submit: (event: SubmitEvent) => {
           event!.preventDefault();
           if (getFormField('signup')) {
-            console.log(getFormField('signup'))
+            AuthController.signup(getFormField('signup') as SignupData);
+            Router.go(Routes.Index)
           }
-          AuthController.signup(getFormField('signup') as SignupData)
         }
       }
     });
@@ -44,6 +48,18 @@ export class Signup extends Block {
   }
 
   render() {
-    return `{{{form}}} {{{nav}}}`;
+    return `{{#if error}} {{{errorLabel}}} {{/if}} {{{form}}}`;
+  }
+
+  // @ts-ignore
+  protected componentDidUpdate(oldProps: SigninProps, newProps: SigninProps): boolean {
+    if(this.props.error) {
+      this.children.errorLabel = new Label({
+        message: this.props.error['reason'],
+        className: ['error-message-password']
+      })
+      return true;
+    }
   }
 }
+export const SignupPage = withUser(Signup);

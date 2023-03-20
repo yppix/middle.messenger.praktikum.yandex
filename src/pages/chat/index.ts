@@ -1,12 +1,17 @@
 import Block from '../../utils/Block';
 import {ChatList} from "../../components/chat/chatLeft/chatList";
-import {isChosen} from "../../utils/choseChat";
-import {ChatNoMessages} from "../../components/chat/chatRight/chatNoMessages";
 import {ChatView} from "../../components/chat/chatRight/chatView";
+import {withStore} from "../../hocs/withStore";
+import {Chat as ChatTypeProps} from "../../apiTypes/chatTypes";
+import {State} from "../../utils/Store";
 
 interface ChatProps {
   className: string;
   messageView?: boolean;
+}
+
+export interface PropsWithChat extends ChatTypeProps {
+  isLoading?: boolean
 }
 
 export class Chat extends Block {
@@ -15,18 +20,13 @@ export class Chat extends Block {
   }
 
   init() {
-    this.children.chatList = new ChatList({
-      className: ["chat-list"],
-      events: {
-        click: () => {
-          this.setProps(
-            this.props.messageView = true
-          )
-        }
-      }
+    this.children.chatList = new ChatListData({
+      className: ["chat-list"]
     })
 
-    this.children.chatPage = this.getChatPage();
+    this.children.chatPage = new ChatViewData({
+      className: ["chat-view__nothing"],
+    });
 
     this.element?.classList.add(this.props.className);
   }
@@ -34,23 +34,12 @@ export class Chat extends Block {
   render() {
     return `<div class="chat">{{{chatList}}} {{{chatPage}}}</div>`;
   }
-
-  private getChatPage() {
-    if (isChosen()) {
-      return new ChatView({
-        className: ["chat-view"],
-      })
-    } else {
-      return new ChatNoMessages({
-        className: ["chat-view__nothing"],
-      });
-    }
-  }
-
-  // @ts-ignore
-  protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
-    this.children.chatPage = this.getChatPage();
-
-    return true;
-  }
 }
+export const ChatListData = withStore((state) => {
+  const chatData = { ...state.chats } as PropsWithChat;
+  chatData.isLoading = state.chats?.isLoading ? state.chats?.isLoading : true;
+  return chatData;
+})(ChatList);
+
+export const ChatViewData = withStore((state: State) => ({selectedChatId: state.selectedChatId}))(ChatView);
+

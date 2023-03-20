@@ -47,7 +47,7 @@ function _checkField(field: any)
 
 
     label.setAttribute("for", field.name);
-    label.setAttribute("class", "error-message");
+    label.setAttribute("class", "error-message-edit");
 
     label.innerHTML = `${fieldName} can not be empty.`;
 

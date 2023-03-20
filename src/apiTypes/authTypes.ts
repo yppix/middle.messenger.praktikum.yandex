@@ -22,3 +22,8 @@ export interface User {
   phone: string;
   avatar: string;
 }
+
+export const UserProfileFields:Array<string> =  ['first_name', 'second_name', 'login', 'display_name', 'email', 'phone'];
+
+export const ChangePasswordFields:Array<string> =  ['oldPassword', 'newPassword'];
+
