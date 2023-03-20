@@ -1,5 +1,6 @@
 import WSTransport, { WSTransportEvents } from '../utils/WSTransport';
 import store from '../utils/Store';
+import {ErrorReason} from "../apiTypes/errorTypes";
 
 export interface Message {
   chat_id: number;
@@ -26,39 +27,52 @@ class MessagesController {
       return;
     }
 
-    const userId = store.getState().user.data.id;
+    try {
+      const userId = store.getState().user.data.id;
 
-    const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`);
+      const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`);
 
-    this.sockets.set(id, wsTransport);
+      this.sockets.set(id, wsTransport);
 
-    await wsTransport.connect();
+      await wsTransport.connect();
 
-    this.subscribe(wsTransport, id);
-    this.fetchOldMessages(id);
+      this.subscribe(wsTransport, id);
+      this.fetchOldMessages(id);
+    } catch (e: unknown) {
+      store.set("error", `Chat #${id}: ${(e as ErrorReason).reason}`);
+    }
   }
 
   sendMessage(id: number, message: string) {
     const socket = this.sockets.get(id);
 
     if (!socket) {
+      store.set("error", `Chat ${id} is not connected`);
       throw new Error(`Chat ${id} is not connected`);
     }
 
-    socket.send({
-      type: 'message',
-      content: message,
-    });
+    try {
+      socket.send({
+        type: 'message',
+        content: message,
+      });
+    } catch (e: unknown) {
+      store.set("error", `Chat #${id}: ${(e as ErrorReason).reason}`);
+    }
   }
 
   fetchOldMessages(id: number) {
     const socket = this.sockets.get(id);
 
     if (!socket) {
+      store.set("error", `Chat ${id} is not connected`);
       throw new Error(`Chat ${id} is not connected`);
     }
-
-    socket.send({type: 'get old', content: '0'});
+    try {
+      socket.send({type: 'get old', content: '0'});
+    } catch (e: unknown) {
+      store.set("error", `Chat #${id}: ${(e as ErrorReason).reason}`);
+    }
   }
 
   closeAll() {

@@ -43,12 +43,15 @@ class ProfileController {
   }
 
   async findProfile (data: ProfileSearch) {
-
     store.set("userSearch", undefined);
 
-    const user = await this.api.searchUser(data);
+    try {
+      const user = await this.api.searchUser(data);
 
-    store.set("userSearchResults", user);
+      store.set("userSearchResults", user);
+    } catch (e: any) {
+      store.set('user.error', e as Error)
+    }
   }
 
 }

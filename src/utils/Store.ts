@@ -23,6 +23,7 @@ export interface State {
   selectedChatId?: number;
   messages?: Record<number, Message[]>,
   userSearch: Profile[];
+  error?: string;
 }
 
 export class Store extends EventBus {

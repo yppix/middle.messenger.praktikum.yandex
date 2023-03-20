@@ -38,12 +38,15 @@ export class AuthController {
   async fetchUser() {
     store.set('user.isLoading', true);
 
-    const user = await this.api.read();
+    try {
+      const user = await this.api.read();
+      store.set('user.data', user);
 
-    store.set('user.data', user);
+    } catch (e: any) {
+        store.set('user.error', (e as Error))
+    }
 
     store.set('user.isLoading', false);
-
   }
 
   async logout() {
