@@ -66,6 +66,11 @@ class Router {
 
   public use(pathname: string, block: BlockConstructable) {
     const route = new Route(pathname, block, this.rootQuery);
+    console.log('use')
+    console.log(route)
+    console.log(this.rootQuery)
+    console.log(this.routes)
+
     this.routes.push(route);
 
     return this;
