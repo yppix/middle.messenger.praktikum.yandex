@@ -2,7 +2,6 @@ import Block from '../../../utils/Block';
 import {ChatHelper} from "../../chat/chatHelper";
 import {ProfileViewItem} from "../profileViewItem";
 import {UserProfileFields} from "../../../apiTypes/authTypes";
-import {isEqual} from "../../../utils/helpers";
 
 interface ProfileViewMainProps {
   className: Array<string>;
@@ -14,9 +13,6 @@ export class ProfileViewMain extends Block {
   }
 
   init() {
-
-    console.log(this.props.avatar)
-
     if (this.props.avatar) {
       this.children.avatar = new ChatHelper({
         className: ["profile-avatar"],
@@ -35,12 +31,6 @@ export class ProfileViewMain extends Block {
 
   render() {
     return `<div class="profile-view__avatar"> {{{avatar}}} </div> <div class="profile-view__fieldset">{{#each fields}} {{{this}}} {{/each}} </div>`;
-  }
-
-  protected componentDidUpdate(oldProps: ProfileViewMainProps, newProps: ProfileViewMainProps): boolean {
-    console.log(oldProps)
-    console.log(newProps)
-    return !isEqual(oldProps, newProps);
   }
 
   private getProfileFields() {

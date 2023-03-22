@@ -1,8 +1,6 @@
 import {ProfileAPI} from "../api/ProfileAPI";
-import router from "../utils/Router";
 import store from "../utils/Store";
 import {Profile, ProfilePassword, ProfileSearch} from "../apiTypes/userTypes";
-import {Routes} from "../static/route/route";
 import AuthController from "./AuthController";
 
 class ProfileController {
@@ -16,7 +14,6 @@ class ProfileController {
     try {
       await this.api.update(data);
       await AuthController.fetchUser();
-      router.go(Routes.Profile);
     } catch (e: any) {
       store.set('user.error', (e as Error))
     }

@@ -10,12 +10,12 @@ export function getFormField(typeForm: string): object|boolean {
       _removeError(item)
     }
 
+    _checkField(item);
+
     if (item.classList.contains("invalid")) {
       hasErrors = true;
+      return
     }
-
-
-    _checkField(item);
   })
 
   // @ts-ignore
