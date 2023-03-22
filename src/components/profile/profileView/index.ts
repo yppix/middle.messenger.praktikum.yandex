@@ -3,6 +3,7 @@ import {ProfileButtonSet} from "../profileButtonset";
 import {ProfileViewMain} from "../profileViewMain";
 import {withRouter} from "../../../hocs/withRouter";
 import withUser from "../../../hocs/withUser";
+import {isEqual} from "../../../utils/helpers";
 
 interface ProfileViewProps {
   className: Array<string>;
@@ -28,6 +29,12 @@ export class ProfileView extends Block {
 
   render() {
     return `{{{main}}} {{{buttons}}}`;
+  }
+
+  protected componentDidUpdate(oldProps: ProfileViewProps, newProps: ProfileViewProps): boolean {
+    console.log(oldProps)
+    console.log(newProps)
+    return !isEqual(oldProps, newProps);
   }
 }
 

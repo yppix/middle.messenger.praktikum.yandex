@@ -1,5 +1,6 @@
 import Block from '../../../utils/Block';
 import {Link} from "../link";
+import {Routes} from "../../../static/route/route";
 
 interface TitleFormFooterProps {
   typeRedirect: string;
@@ -17,7 +18,7 @@ export class TitleFormFooter extends Block {
       linkText: this.props.typeRedirect === "signup" ? "Sign up" : "Sign in",
       className: ["form__link-footer"],
       events: {
-        click: () => this.props.router.go(this.props.typeRedirect)
+        click: () => this.props.router.go(this.props.typeRedirect === "signup" ? Routes.Register : Routes.Index)
       }
     });
 

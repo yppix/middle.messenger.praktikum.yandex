@@ -51,6 +51,6 @@ export class ChatListInfo extends Block {
   }
 
   render() {
-    return `<div class="chat-info__top"> {{#if ${this.props.notification} }} {{{notification}}} {{/if}} {{{menu}}} </div> <div class="chat-info__bottom"> {{{icon}}} {{{time}}}</div>`;
+    return `<div class="chat-info__top"> {{#if ${this.props.notification} }} {{{notification}}} {{/if}} </div> <div class="chat-info__bottom"> {{{icon}}} {{{time}}}</div>`;
   }
 }

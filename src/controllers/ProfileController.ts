@@ -2,6 +2,8 @@ import {ProfileAPI} from "../api/ProfileAPI";
 import router from "../utils/Router";
 import store from "../utils/Store";
 import {Profile, ProfilePassword, ProfileSearch} from "../apiTypes/userTypes";
+import {Routes} from "../static/route/route";
+import AuthController from "./AuthController";
 
 class ProfileController {
   private readonly api: ProfileAPI;
@@ -12,11 +14,9 @@ class ProfileController {
 
   async updateProfile(data: Profile) {
     try {
-      const user = await this.api.update(data);
-
-      store.set("user.data", user);
-
-      router.go('/profile');
+      await this.api.update(data);
+      await AuthController.fetchUser();
+      router.go(Routes.Profile);
     } catch (e: any) {
       store.set('user.error', (e as Error))
     }
@@ -24,9 +24,8 @@ class ProfileController {
 
   async updateAvatar(data: FormData) {
     try {
-      const user = await this.api.loadAvatar(data);
-
-      store.set("user.data", user);
+      await this.api.loadAvatar(data);
+      await AuthController.fetchUser();
     } catch (e: any) {
       store.set('user.error', (e as Error))
     }

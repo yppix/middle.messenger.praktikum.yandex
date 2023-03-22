@@ -2,11 +2,8 @@ import Block from "../../utils/Block";
 import { Subtitle } from "../helpers/subtitle";
 import {Title} from "../helpers/title";
 import {Link} from "../helpers/link";
-
-const ERRORS: Record<string, string> = {
-  "404": "Nothing to see here",
-  "505":"Our cats broke something. We are fixing..."
-};
+import router from "../../utils/Router";
+import {Routes} from "../../static/route/route";
 
 interface ErrorMessageProps {
   typeError: string;
@@ -28,14 +25,8 @@ export class ErrorMessage extends Block {
       className: ["title-error"]
     });
 
-    if (this.props.typeError === "505") {
-      this.props.textError = "Broken" ;
-    } else if (this.props.typeError === "404") {
-      this.props.textError = "Cat" ;
-    }
-
     this.children.subtitle = new Subtitle({
-      titleText: ERRORS[this.props.textError],
+      titleText: this.props.textError,
       className: ["subtitle-error"]
     });
 
@@ -43,7 +34,7 @@ export class ErrorMessage extends Block {
       linkText: "Main page",
       className: ["link-nav"],
       events: {
-        click: () => console.log('signin')
+        click: () => router.go(Routes.Index)
       }
     });
 
