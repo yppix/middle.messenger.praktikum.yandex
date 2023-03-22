@@ -1,8 +1,7 @@
 import Block from '../../../utils/Block';
 import {Input} from "../field";
 import {SvgIcon} from "../svgIcon";
-import {checkField} from "../../../utils/checkFields";
-import {removeError} from "../../../utils/removeError";
+import MessagesController from "../../../controllers/MessagesController";
 
 interface LabelForInputProps {
   className: Array<string>;
@@ -14,6 +13,7 @@ interface LabelForInputProps {
   id?: string;
   value?: string;
   isSvg: boolean;
+  idChat?: number;
   classSvg?: Array<string>;
 }
 
@@ -26,7 +26,16 @@ export class LabelForInput extends Block {
     if (this.props.isSvg) {
       this.children.icon = new SvgIcon({
         className: this.props.classSvg,
-        id: this.props.svgId
+        id: this.props.svgId,
+        events: {
+          click: () => {
+            const message = document.getElementById("send-message-input") as HTMLInputElement;
+            if (message!.value) {
+              MessagesController.sendMessage(this.props.idChat, message!.value)
+              message!.value = "";
+            }
+          }
+        }
       });
     }
 
@@ -36,11 +45,7 @@ export class LabelForInput extends Block {
       className: this.props.inputClass,
       typeInput: this.props.typeInput,
       id: this.props.id,
-      value: this.props.value,
-      events: {
-        blur: () => checkField(this.props.nameInput),
-        focus: () => removeError(this.props.nameInput)
-      }
+      value: this.props.value
     });
 
     this.props.className.forEach((element: string) => this.element!.classList.add(element));

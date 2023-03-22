@@ -7,7 +7,7 @@ import {SvgIcon} from "../../../helpers/svgIcon";
 interface ChatListInfoProps {
   className: Array<string>;
   isReaden?: boolean;
-  notification?:boolean;
+  notification?:number;
 }
 
 export class ChatListInfo extends Block {
@@ -19,7 +19,7 @@ export class ChatListInfo extends Block {
     if(this.props.notification) {
       this.children.notification = new ChatHelper({
         className: ["chat-notification"],
-        text: "1"
+        text: this.props.notification
       });
     }
 
@@ -51,6 +51,6 @@ export class ChatListInfo extends Block {
   }
 
   render() {
-    return `<div class="chat-info__top"> {{#if ${this.props.notification} }} {{{notification}}} {{/if}} {{{menu}}} </div> <div class="chat-info__bottom"> {{{icon}}} {{{time}}}</div>`;
+    return `<div class="chat-info__top"> {{#if ${this.props.notification} }} {{{notification}}} {{/if}} </div> <div class="chat-info__bottom"> {{{icon}}} {{{time}}}</div>`;
   }
 }

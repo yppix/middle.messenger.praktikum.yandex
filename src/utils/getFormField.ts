@@ -10,12 +10,12 @@ export function getFormField(typeForm: string): object|boolean {
       _removeError(item)
     }
 
+    _checkField(item);
+
     if (item.classList.contains("invalid")) {
       hasErrors = true;
+      return
     }
-
-
-    _checkField(item);
   })
 
   // @ts-ignore
@@ -47,7 +47,7 @@ function _checkField(field: any)
 
 
     label.setAttribute("for", field.name);
-    label.setAttribute("class", "error-message");
+    label.setAttribute("class", "error-message-edit");
 
     label.innerHTML = `${fieldName} can not be empty.`;
 

@@ -31,6 +31,7 @@ export class MenuList extends Block {
   private renderMenuItem() {
     return MENUS[this.props.typeMenu].map(data => {
       return new MenuListItem({
+        isOpenModal: false,
         svgId: this.props.typeMenu,
         linkText: data,
         linkClass: `${this.props.typeMenu}__item`,

@@ -1,8 +1,10 @@
 import Block from '../../../utils/Block';
 import {ProfileButtonSet} from "../../profile/profileButtonset";
 import {ChangePasswordMain} from "../changePasswordMain";
+import {withRouter} from "../../../hocs/withRouter";
+import withUser from "../../../hocs/withUser";
 
-interface ChangePasswordFormProps {
+interface ChangePasswordFormProps  {
   actionForm: string;
   methodForm: string;
   className: Array<string>;
@@ -18,11 +20,11 @@ export class ChangePasswordForm extends Block {
   }
 
   init() {
-    this.children.main = new ChangePasswordMain({
+    this.children.main = new ChangePasswordData({
       className: ["profile-edit__password-fieldset"]
     })
 
-    this.children.buttons = new ProfileButtonSet({
+    this.children.buttons = new ChangePasswordButtonSetLinks({
       className: ["profile__buttons"],
       type: "edit"
     })
@@ -37,3 +39,7 @@ export class ChangePasswordForm extends Block {
     return `{{{main}}} {{{buttons}}}`;
   }
 }
+
+export const ChangePasswordData = withUser(ChangePasswordMain);
+
+export const ChangePasswordButtonSetLinks = withRouter(ProfileButtonSet);

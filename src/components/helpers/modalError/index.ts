@@ -3,7 +3,7 @@ import {Button} from "../button";
 import {LabelP} from "../labelP";
 
 interface ModalErrorProps {
-  className: Array<string>;
+  className?: Array<string>;
   text?: string;
 
 }

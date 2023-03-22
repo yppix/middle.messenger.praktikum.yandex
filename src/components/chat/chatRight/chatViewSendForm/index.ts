@@ -6,6 +6,7 @@ interface ChatViewSendFormProps {
   methodForm: string;
   className: Array<string>;
   id: string;
+  idChat?: number;
   events: {
     submit: (event: SubmitEvent) => void,
   };
@@ -26,7 +27,9 @@ export class ChatViewSendForm extends Block {
       typeInput: "text",
       nameInput: "message",
       isSvg: true,
-      svgId: "send"
+      id: `${this.props.id}-input`,
+      svgId: "send",
+      idChat: this.props.idChat,
     });
 
     this.props.className.forEach((element: string) => this.element!.classList.add(element));

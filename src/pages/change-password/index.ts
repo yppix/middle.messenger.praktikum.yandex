@@ -1,6 +1,10 @@
 import Block from '../../utils/Block';
 import {ChangePasswordForm} from "../../components/changePassword/changePasswordForm";
 import {getFormField} from "../../utils/getFormField";
+import ProfileController from "../../controllers/ProfileController";
+import {ProfilePassword} from "../../apiTypes/userTypes";
+import AuthController from "../../controllers/AuthController";
+
 interface ChangePasswordProps {
   className: string;
 }
@@ -11,6 +15,7 @@ export class ChangePassword extends Block {
   }
 
   init() {
+    // @ts-ignore
     this.children.view = new ChangePasswordForm({
       className: ["profile"],
       actionForm: "#",
@@ -20,7 +25,8 @@ export class ChangePassword extends Block {
         submit: (event: SubmitEvent) => {
           event!.preventDefault();
           if (getFormField("change-password")) {
-            console.log(getFormField("change-password"))
+            ProfileController.updatePassword(getFormField("change-password") as ProfilePassword);
+            AuthController.logout()
           }
         }
       }

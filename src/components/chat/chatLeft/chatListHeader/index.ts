@@ -1,7 +1,6 @@
 import Block from '../../../../utils/Block';
 import {ChatSearchForm} from "../chatSearch";
 import {Menu} from "../../../menus/menu";
-import {getFormField} from "../../../../utils/getFormField";
 
 interface ChatListHeaderProps {
   className: Array<string>;
@@ -28,9 +27,6 @@ export class ChatListHeader extends Block {
       events: {
         submit: (event: SubmitEvent) => {
           event!.preventDefault();
-          if (getFormField("search")) {
-            console.log(getFormField("search"))
-          }
         }
       }
     })

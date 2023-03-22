@@ -1,5 +1,7 @@
 import Block from '../../utils/Block';
 import {ProfileView} from "../../components/profile/profileView";
+import withUser from "../../hocs/withUser";
+
 interface ProfileProps {
   className: string;
 }
@@ -10,7 +12,7 @@ export class Profile extends Block {
   }
 
   init() {
-    this.children.view = new ProfileView({
+    this.children.view = new ProfileViewData({
       className: ["profile"]
     })
 
@@ -20,4 +22,7 @@ export class Profile extends Block {
   render() {
     return `{{{view}}}`;
   }
+
 }
+
+export const ProfileViewData = withUser(ProfileView);

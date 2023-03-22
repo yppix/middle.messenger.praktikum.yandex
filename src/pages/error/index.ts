@@ -14,8 +14,8 @@ export class Error extends Block {
   init() {
 
     this.children.errorMessage =new ErrorMessage({
-      typeError: this.props.typePage,
-      textError: this.props.typePage,
+      typeError:  "404",
+      textError: "Nothing to see here",
       className: "error"
     });
 

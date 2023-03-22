@@ -1,6 +1,8 @@
 import Block from '../../../utils/Block';
 import {ProfileButtonSet} from "../profileButtonset";
 import {ProfileViewMain} from "../profileViewMain";
+import {withRouter} from "../../../hocs/withRouter";
+import withUser from "../../../hocs/withUser";
 
 interface ProfileViewProps {
   className: Array<string>;
@@ -12,11 +14,11 @@ export class ProfileView extends Block {
   }
 
   init() {
-    this.children.main = new ProfileViewMain({
+    this.children.main = new ProfileData({
       className: ["profile-view"]
     })
 
-    this.children.buttons = new ProfileButtonSet({
+    this.children.buttons = new ProfileButtonSetLinks({
       className: ["profile__buttons"],
       type: "view"
     })
@@ -27,5 +29,8 @@ export class ProfileView extends Block {
   render() {
     return `{{{main}}} {{{buttons}}}`;
   }
-
 }
+
+export const ProfileData = withUser(ProfileViewMain);
+
+export const ProfileButtonSetLinks = withRouter(ProfileButtonSet);
