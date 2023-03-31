@@ -6,7 +6,7 @@ export class ProfileAPI extends BaseAPI {
     super('/user');
   }
 
-  read(identifier: string): Promise<Profile> {
+  readProfile(identifier: string): Promise<Profile> {
     return this.http.get(`/${identifier}`);
   }
 
@@ -28,7 +28,7 @@ export class ProfileAPI extends BaseAPI {
 
   create = undefined;
   delete = undefined;
-
+  read = undefined;
 }
 
 export default new ProfileAPI();

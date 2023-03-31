@@ -1,7 +1,7 @@
 import Block from './Block';
 import {Routes} from "../static/route/route";
 
-interface BlockConstructable { new(props: any): Block; }
+export interface BlockConstructable { new(props: any): Block; }
 
 function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs;
