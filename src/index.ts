@@ -10,6 +10,9 @@ import {Chat} from "./pages/chat";
 import {Routes} from "./static/route/route";
 import ChatsController from "./controllers/ChatsController";
 import store from "./utils/Store";
+import "./index.pcss";
+// @ts-ignore
+import logout from './static/icons/logout.svg'
 
 window.addEventListener('DOMContentLoaded', async () => {
   Router
