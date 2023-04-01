@@ -11,13 +11,13 @@ export function withStore(mapStateToProps: (state: any) => any) {
   return function wrap(Component: BlockConstructable){
 
     return class WithStore extends Component {
-
+      private handler:()=>void;
       constructor(props: any) {
         previousState = mapStateToProps(store.getState());
 
         super({ ...props, ...previousState });
 
-        store.on(StoreEvents.UPDATED, () => {
+        this.handler = () => {
           const stateProps = mapStateToProps(store.getState());
 
           if(isEqual(previousState, stateProps)) {
@@ -27,7 +27,13 @@ export function withStore(mapStateToProps: (state: any) => any) {
           previousState = {...stateProps};
 
           this.setProps({ ...stateProps });
-        });
+        };
+
+        store.on(StoreEvents.UPDATED,this.handler);
+      }
+
+      componentWillUnmount() {
+        store.off(StoreEvents.UPDATED,this.handler);
       }
     }
 

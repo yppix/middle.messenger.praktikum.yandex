@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+
 
 module.exports = {
   mode: "development",
@@ -14,7 +16,8 @@ module.exports = {
       title: 'Chatty',
       template: "src/index.hbs"
     }),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin(),
+    new SpriteLoaderPlugin()
   ],
   resolve: {
     extensions: [".ts", ".js", ".json"],
@@ -35,7 +38,12 @@ module.exports = {
       },
       {
         test: /\.svg?$/,
-        loader:  'svg-sprite-loader'
+        loader: 'svg-sprite-loader',
+        options: {
+          extract: true,
+          outputPath: 'dist/sprites/',
+          publicPath: '/'
+        }
       },
       {
         test: /\.ts?$/,

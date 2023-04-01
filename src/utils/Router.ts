@@ -31,6 +31,8 @@ class Route {
   }
 
   leave() {
+    // @ts-ignore
+    this.block.dispatchComponentWillUnmount();
     this.block = null;
   }
 
