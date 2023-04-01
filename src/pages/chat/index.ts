@@ -32,12 +32,18 @@ export class Chat extends Block {
   }
 
   render() {
+    console.log('parent render')
     return `<div class="chat">{{{chatList}}} {{{chatPage}}}</div>`;
   }
 }
+
 export const ChatListData = withStore((state) => {
-  return { ...state.chats } as PropsWithChat;
+  return {...state.chats} as PropsWithChat;
 })(ChatList);
 
-export const ChatViewData = withStore((state: State) => ({selectedChatId: state.selectedChatId}))(ChatView);
+export const ChatViewData = withStore((state: State) => {
+  const chats = state.chats;
+  const selectedChatId = state.selectedChatId;
+  return {chats: chats, selectedChatId: selectedChatId};
+})(ChatView);
 
