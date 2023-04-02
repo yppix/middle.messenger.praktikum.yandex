@@ -88,7 +88,7 @@ export class ChatView extends Block {
 }
 
 export const ChatMessagesData = withStore((state) => {
-  const userId = state.user.data.id;
+  const userId = state.user?.data?.id;
   const messages = state.messages;
   return {userId: userId, messages: messages};
 })(ChatViewMessages);
