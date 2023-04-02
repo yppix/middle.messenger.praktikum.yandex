@@ -16,7 +16,12 @@ export class ChatViewMessages extends Block {
   }
 
   init() {
-    if(!this.props.messages[this.props.idChat]) {
+    console.log(this.props)
+    console.log(this.props.messages)
+
+
+    const findedChat = this.props.messages[this.props.idChat] ?? null;
+    if(!findedChat) {
       this.props.noMessages = true;
     } else {
       const messages = this.props.messages[this.props.idChat];

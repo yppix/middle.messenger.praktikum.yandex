@@ -57,7 +57,6 @@ export class MenuListItem extends Block {
         }
       })
     } else if (this.props.linkText === "logout") {
-      if (this.props.linkText === "edit-profile") {
         this.children.link = new Link({
           linkText: this.props.linkText,
           className: [this.props.linkClass],
@@ -65,7 +64,6 @@ export class MenuListItem extends Block {
             click: () => AuthController.logout()
           }
         })
-      }
     }
 
     this.props.className.forEach((element: string) => this.element!.classList.add(element));

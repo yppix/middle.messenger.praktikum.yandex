@@ -5,6 +5,7 @@ import check from '../../../static/icons/check.svg'
 import close from '../../../static/icons/close.svg'
 import doubleCheck from '../../../static/icons/double-check.svg'
 import editProfile from '../../../static/icons/edit-profile.svg'
+import logout from '../../../static/icons/logout.svg'
 import addMember from '../../../static/icons/add-member.svg'
 import info from '../../../static/icons/info.svg'
 import newChat from '../../../static/icons/new-chat.svg'
@@ -53,7 +54,7 @@ export class SvgIcon extends Block {
      } else if (this.props.id === "info") {
        return `<svg style="height:22px; width:30px; align-self: center; color: var(--orange)"><use xlink:href="${info}"/></svg>`;
      } else if (this.props.id === "logout") {
-       return `<svg style="height:22px; width:20px; align-self: center; color: var(--orange)"><use xlink:href="#logout"/></svg>`;
+       return `<svg style="height:22px; width:20px; align-self: center; color: var(--orange)"><use xlink:href="${logout}"/></svg>`;
      } else if (this.props.id === "new-chat") {
        return `<svg style="height:22px; width:20px; align-self: center; color: var(--orange)"><use xlink:href="${newChat}"/></svg>`;
      } else if (this.props.id === "new-group-chat") {

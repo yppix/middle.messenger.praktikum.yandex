@@ -32,7 +32,6 @@ export class Chat extends Block {
   }
 
   render() {
-    console.log('parent render')
     return `<div class="chat">{{{chatList}}} {{{chatPage}}}</div>`;
   }
 }

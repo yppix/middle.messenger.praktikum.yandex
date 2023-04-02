@@ -41,7 +41,6 @@ module.exports = {
         loader: 'svg-sprite-loader',
         options: {
           extract: true,
-          outputPath: 'dist/sprites/',
           publicPath: '/'
         }
       },
