@@ -24,8 +24,12 @@ describe ('Router component', () => {
   });
 
   const getContentFake = sinon.fake.returns(document.createElement('div'));
+  const dispatchComponentWillUnmountSt = sinon.stub();
+  const dispatchComponentDidMountSt = sinon.stub();
 
   const BlockMock = class {
+    dispatchComponentDidMount= dispatchComponentWillUnmountSt;
+    dispatchComponentWillUnmount = dispatchComponentDidMountSt;
     getContent = getContentFake;
   } as unknown as BlockConstructable;
 
@@ -58,7 +62,7 @@ describe ('Router component', () => {
     expect(getContentFake.callCount).to.eq(1);
   });
 
-  it.only('should render a page on go action', () => {
+  it ('should render a page on go action', () => {
     Router
       .use(Routes.Index, BlockMock)
       .use(Routes.Profile, BlockMock)

@@ -6,6 +6,7 @@ import {ChatViewSendForm} from "../chatViewSendForm";
 import MessagesController from "../../../../controllers/MessagesController";
 import {withStore} from "../../../../hocs/withStore";
 import {isEqual} from "../../../../utils/helpers";
+import ChatsController from "../../../../controllers/ChatsController";
 
 interface ChatViewProps {
   className: Array<string>;
@@ -67,6 +68,7 @@ export class ChatView extends Block {
             if (message!.value) {
               MessagesController.sendMessage(selectedChatIdNew, message!.value)
               message!.value = "";
+              ChatsController.fetchChats()
             }
           }
         }
@@ -89,6 +91,6 @@ export class ChatView extends Block {
 
 export const ChatMessagesData = withStore((state) => {
   const userId = state.user?.data?.id;
-  const messages = state.messages;
+  const messages = {...state.messages};
   return {userId: userId, messages: messages};
 })(ChatViewMessages);

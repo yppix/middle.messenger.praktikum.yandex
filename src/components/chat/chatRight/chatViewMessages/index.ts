@@ -16,10 +16,6 @@ export class ChatViewMessages extends Block {
   }
 
   init() {
-    console.log(this.props)
-    console.log(this.props.messages)
-
-
     const findedChat = this.props.messages[this.props.idChat] ?? null;
     if(!findedChat) {
       this.props.noMessages = true;
@@ -48,7 +44,6 @@ export class ChatViewMessages extends Block {
   }
 
   protected componentDidUpdate(oldProps: ChatViewMessagesProps, newProps: ChatViewMessagesProps): boolean {
-
     if (!isEqual(oldProps, newProps)) {
       // @ts-ignore
       this.props.noMessages = newProps.messages[this.props.idChat]?.length === 0;
@@ -70,7 +65,6 @@ export class ChatViewMessages extends Block {
 
         const opponentClass = userId !== data.user_id ? "message-opponent" : "message-personal";
         const visibilityClass = userId !== data.user_id ? "is-read-hidden" : "is-read-visible";
-
 
         return new ChatViewMessageItem({
           className: ["chat-message", opponentClass],

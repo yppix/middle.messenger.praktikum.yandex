@@ -61,7 +61,10 @@ export class MenuListItem extends Block {
           linkText: this.props.linkText,
           className: [this.props.linkClass],
           events: {
-            click: () => AuthController.logout()
+            click: () => {
+              AuthController.logout();
+              Router.go(Routes.Index);
+            }
           }
         })
     }

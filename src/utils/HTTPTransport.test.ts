@@ -2,11 +2,12 @@ import sinon from "sinon";
 import HTTPTransport from "./HTTPTransport";
 import {expect} from "chai";
 
-describe('HTTPTransport class', () => {
+describe ('HTTPTransport class', () => {
 
   const originalXMLHttpRequest = global.XMLHttpRequest;
   const requests: sinon.SinonFakeXMLHttpRequest[] = [];
   const testData = {a: 1};
+
 
   beforeEach(() => {
     const XHR = sinon.useFakeXMLHttpRequest();
