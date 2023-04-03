@@ -10,6 +10,7 @@ import ChatsController from "../../../../controllers/ChatsController";
 
 interface ChatViewProps {
   className: Array<string>;
+  selectedChatId: number;
 }
 
 export class ChatView extends Block {
@@ -35,13 +36,11 @@ export class ChatView extends Block {
   }
 
   protected componentDidUpdate(oldProps: ChatViewProps, newProps: ChatViewProps): boolean {
-    // @ts-ignore
     let selectedChatIdNew = newProps.selectedChatId;
 
-    //console.trace()
     if(!isEqual(oldProps, newProps) && selectedChatIdNew) {
       // @ts-ignore
-      const chatSelected = newProps.chats.list.find((data: { id: any; }) => data.id === selectedChatIdNew)
+      const chatSelected = newProps.chats.list.find((data: { id: number; }) => data.id === selectedChatIdNew)
 
       this.children.header = new ChatViewHeader({
         className: ["chat-view__header"],

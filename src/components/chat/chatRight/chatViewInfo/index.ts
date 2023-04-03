@@ -42,8 +42,9 @@ export class ChatViewInfo extends Block {
       if (!event?.target) {
         return;
       }
-      // @ts-ignore
-      const action = event.currentTarget.htmlFor;
+
+
+      const action = (event.currentTarget! as HTMLLabelElement).htmlFor;
 
       if (action === "add-member") {
         props.isOpenModal = true;

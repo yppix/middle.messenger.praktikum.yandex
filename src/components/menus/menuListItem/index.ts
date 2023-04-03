@@ -31,8 +31,8 @@ export class MenuListItem extends Block {
       if (!event?.target) {
         return;
       }
-      // @ts-ignore
-      const action = event.target.textContent;
+
+      const action = (event.target as HTMLDivElement).textContent;
 
       if (action === "new-chat") {
         props.isOpenModal = true;
@@ -89,8 +89,8 @@ export class MenuListItem extends Block {
           events: {
             submit: (event: SubmitEvent) => {
               event!.preventDefault();
-              // @ts-ignore
-              let title = document.getElementById(`${newProps.forOpenModal}-input`).value
+
+              let title = (document.getElementById(`${newProps.forOpenModal}-input`)! as HTMLInputElement).value
               const form = document.getElementById(`${newProps.forOpenModal}-form`);
               if(title) {
                 ChatsController.create(title);
