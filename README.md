@@ -3,7 +3,7 @@
 Система обмена сообщениями с базовыми возможностями удаления и создания чатов, групповых чатов и настройки своего профиля.
 
 Познакомиться с __Chatty__ поближе можно по ссылке:
-https://bba03a2b4f2re5h9ol0c.containers.yandexcloud.net/messenger
+https://bbaevi09s2qs827jv70k.containers.yandexcloud.net/messenger
 
 
 ## Что есть в Chatty сейчас
