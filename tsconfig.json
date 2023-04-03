@@ -8,8 +8,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   },
+  "ts-node": { "files": true },
   "exclude": [
     "node_modules",
     ".parcel-cache",

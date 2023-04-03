@@ -74,6 +74,7 @@ class Block <P extends Record<string, any> = any> {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
   }
 
@@ -98,6 +99,12 @@ class Block <P extends Record<string, any> = any> {
 
   componentDidMount() {}
 
+  _componentWillUnmount() {
+    this.componentWillUnmount();
+  }
+
+  componentWillUnmount() {}
+
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
@@ -106,6 +113,18 @@ class Block <P extends Record<string, any> = any> {
         child.forEach(ch => ch.dispatchComponentDidMount());
       } else {
         child.dispatchComponentDidMount();
+      }
+    });
+  }
+
+  public dispatchComponentWillUnmount() {
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+
+    Object.values(this.children).forEach(child => {
+      if (Array.isArray(child)) {
+        child.forEach(ch => ch.dispatchComponentWillUnmount());
+      } else {
+        child.dispatchComponentWillUnmount();
       }
     });
   }

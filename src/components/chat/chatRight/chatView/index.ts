@@ -3,12 +3,14 @@ import {Title} from "../../../helpers/title";
 import {ChatViewHeader} from "../chatViewHeader";
 import {ChatViewMessages} from "../chatViewMessages";
 import {ChatViewSendForm} from "../chatViewSendForm";
-import store from "../../../../utils/Store";
 import MessagesController from "../../../../controllers/MessagesController";
 import {withStore} from "../../../../hocs/withStore";
+import {isEqual} from "../../../../utils/helpers";
+import ChatsController from "../../../../controllers/ChatsController";
 
 interface ChatViewProps {
   className: Array<string>;
+  selectedChatId: number;
 }
 
 export class ChatView extends Block {
@@ -29,21 +31,16 @@ export class ChatView extends Block {
     if(!this.props.selectedChatId) {
       return `{{{title}}}`;
     } else {
-      this.props.className = ["chat-view"]
       return `{{{header}}} {{{messageList}}} {{{send}}}`;
     }
   }
 
   protected componentDidUpdate(oldProps: ChatViewProps, newProps: ChatViewProps): boolean {
-
-    // @ts-ignore
-    let selectedChatIdOld = oldProps.selectedChatId;
-    // @ts-ignore
     let selectedChatIdNew = newProps.selectedChatId;
 
-    if(selectedChatIdOld !== selectedChatIdNew && selectedChatIdNew) {
-
-      const chatSelected = store.getState().chats.list.find((data: { id: any; }) => data.id === selectedChatIdNew)
+    if(!isEqual(oldProps, newProps) && selectedChatIdNew) {
+      // @ts-ignore
+      const chatSelected = newProps.chats.list.find((data: { id: number; }) => data.id === selectedChatIdNew)
 
       this.children.header = new ChatViewHeader({
         className: ["chat-view__header"],
@@ -55,6 +52,7 @@ export class ChatView extends Block {
       this.children.messageList = new ChatMessagesData({
         className: ["chat-view__messages"],
         idChat: selectedChatIdNew,
+        idBLock: "chat-view-messenger"
       });
 
       this.children.send = new ChatViewSendForm ({
@@ -70,21 +68,29 @@ export class ChatView extends Block {
             if (message!.value) {
               MessagesController.sendMessage(selectedChatIdNew, message!.value)
               message!.value = "";
+              ChatsController.fetchChats();
             }
           }
         }
       })
 
-      this.element?.classList.remove("chat-view__nothing");
+      const chatViews = document.querySelectorAll('.chat-view__nothing');
 
-      this.element?.classList.add("chat-view");
+      if(chatViews) {
+        for (const div of chatViews) {
+          div.classList.remove("chat-view__nothing");
+          div.classList.add("chat-view");
+        }
+      }
 
       return true;
     }
-    return false;
+    return true;
   }
 }
 
 export const ChatMessagesData = withStore((state) => {
-  return { ...state.messages };
+  const userId = state.user?.data?.id;
+  const messages = {...state.messages};
+  return {userId: userId, messages: messages};
 })(ChatViewMessages);

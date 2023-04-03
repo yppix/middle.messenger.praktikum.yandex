@@ -4,6 +4,7 @@ import {ChatView} from "../../components/chat/chatRight/chatView";
 import {withStore} from "../../hocs/withStore";
 import {Chat as ChatTypeProps} from "../../apiTypes/chatTypes";
 import {State} from "../../utils/Store";
+import ChatsController from "../../controllers/ChatsController";
 
 interface ChatProps {
   className: string;
@@ -20,6 +21,8 @@ export class Chat extends Block {
   }
 
   init() {
+    ChatsController.fetchChats()
+
     this.children.chatList = new ChatListData({
       className: ["chat-list"]
     })
@@ -35,9 +38,15 @@ export class Chat extends Block {
     return `<div class="chat">{{{chatList}}} {{{chatPage}}}</div>`;
   }
 }
+
 export const ChatListData = withStore((state) => {
-  return { ...state.chats } as PropsWithChat;
+  return {...state.chats} as PropsWithChat;
 })(ChatList);
 
-export const ChatViewData = withStore((state: State) => ({selectedChatId: state.selectedChatId}))(ChatView);
+export const ChatViewData = withStore((state: State) => {
+  const chats = {...state.chats};
+  const selectedChatId = state.selectedChatId;
+
+  return {chats: chats, selectedChatId: selectedChatId};
+})(ChatView);
 

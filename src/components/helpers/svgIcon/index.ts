@@ -5,9 +5,9 @@ import check from '../../../static/icons/check.svg'
 import close from '../../../static/icons/close.svg'
 import doubleCheck from '../../../static/icons/double-check.svg'
 import editProfile from '../../../static/icons/edit-profile.svg'
+import logout from '../../../static/icons/logout.svg'
 import addMember from '../../../static/icons/add-member.svg'
 import info from '../../../static/icons/info.svg'
-import logout from '../../../static/icons/logout.svg'
 import newChat from '../../../static/icons/new-chat.svg'
 import newGroupChat from '../../../static/icons/new-group-chat.svg'
 import removePerson from '../../../static/icons/remove-person.svg'
@@ -40,7 +40,7 @@ export class SvgIcon extends Block {
 
   render() {
     if (this.props.id === "search") {
-       return `<svg style="height:19px; width:19px;  position: absolute; align-self: center; color: var(--white)"><use xlink:href="${search}"/></svg>`;
+       return `<svg style="height:19px; width:19px;  align-self: center; color: var(--white)"><use xlink:href="${search}"/></svg>`;
      } else if (this.props.id === "delete-chat") {
        return `<svg style="height:23px; width:23px; align-self: center; color: var(--error)"><use xlink:href="${deleteChat}"/></svg>`;
      } else if (this.props.id === "check") {
@@ -62,7 +62,7 @@ export class SvgIcon extends Block {
      } else if (this.props.id === "remove-person") {
        return `<svg style="height:23px; width:23px; align-self: center; color: var(--error)"><use xlink:href="${removePerson}"/></svg>`;
      } else if (this.props.id === "send") {
-       return `<svg style="height:22px; width:30px; align-self: center; color: var(--orange)"><use xlink:href="${send}"/></svg>`
+       return `<svg style="height:34px; width:30px; align-self: center; color: var(--orange)"><use xlink:href="${send}"/></svg>`
      } else if (this.props.id === "settings") {
        return `<svg style="height:22px; width:22px; align-self: center; color: var(--orange)"><use xlink:href="${settings}"/></svg>`;
      } else if (this.props.id === "triple-dots-horizontal") {
