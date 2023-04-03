@@ -6,6 +6,7 @@ import {isEqual} from "../../../../utils/helpers";
 
 interface ChatViewMessagesProps {
   className: Array<string>;
+  idBLock: string;
   idChat?: number;
   noMessages?: boolean;
 }
@@ -33,6 +34,7 @@ export class ChatViewMessages extends Block {
 
     this.children.messages = this.getMessages();
     this.props.className.forEach((element: string) => this.element!.classList.add(element))
+    this.element!.setAttribute("id", this.props.idBLock);
   }
 
   render() {
@@ -60,7 +62,7 @@ export class ChatViewMessages extends Block {
     if(messages.length !== 0 || messages === 0) {
       this.props.noMessages = false;
 
-      return messages.map((data: Message) => {
+      return messages?.map((data: Message) => {
         const userId = this.props.userId;
 
         const opponentClass = userId !== data.user_id ? "message-opponent" : "message-personal";

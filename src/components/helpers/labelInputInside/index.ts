@@ -1,7 +1,6 @@
 import Block from '../../../utils/Block';
 import {Input} from "../field";
 import {SvgIcon} from "../svgIcon";
-import MessagesController from "../../../controllers/MessagesController";
 
 interface LabelForInputProps {
   className: Array<string>;
@@ -27,15 +26,6 @@ export class LabelForInput extends Block {
       this.children.icon = new SvgIcon({
         className: this.props.classSvg,
         id: this.props.svgId,
-        events: {
-          click: () => {
-            const message = document.getElementById("send-message-input") as HTMLInputElement;
-            if (message!.value) {
-              MessagesController.sendMessage(this.props.idChat, message!.value)
-              message!.value = "";
-            }
-          }
-        }
       });
     }
 
@@ -53,7 +43,7 @@ export class LabelForInput extends Block {
 
   render() {
     if(this.props.isSvg) {
-      return `{{{icon}}} {{{input}}}`;
+      return `<button class="button-svg" type='submit'>{{{icon}}} </button> {{{input}}}`;
     }
     return `{{{input}}}`;
   }

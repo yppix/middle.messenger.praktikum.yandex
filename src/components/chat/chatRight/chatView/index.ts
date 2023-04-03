@@ -52,6 +52,7 @@ export class ChatView extends Block {
       this.children.messageList = new ChatMessagesData({
         className: ["chat-view__messages"],
         idChat: selectedChatIdNew,
+        idBLock: "chat-view-messenger"
       });
 
       this.children.send = new ChatViewSendForm ({
@@ -67,7 +68,7 @@ export class ChatView extends Block {
             if (message!.value) {
               MessagesController.sendMessage(selectedChatIdNew, message!.value)
               message!.value = "";
-              ChatsController.fetchChats()
+              ChatsController.fetchChats();
             }
           }
         }

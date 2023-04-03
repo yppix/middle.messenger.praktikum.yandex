@@ -25,6 +25,7 @@
     gap: 15px;
     justify-content: space-between;
     padding: 10px 5px;
+    width: calc(100% - 10px);
 }
 
 .chat-nameArea {
@@ -50,6 +51,9 @@
     font-size: 13px;
     line-height: 18px;
     color: var(--white);
+    overflow-wrap: anywhere;
+    overflow-y: hidden;
+    height: 20px;
 }
 
 .chat-info {
@@ -85,6 +89,7 @@
     max-width: 100%;
     max-height: 100%;
     flex: 1;
+    scroll-snap-type: y mandatory;
 }
 
 .chat-view__nothing {
@@ -145,6 +150,8 @@
     flex-direction: column;
     overflow-y: auto;
     max-height: 80vh;
+    scroll-behavior: smooth;
+    scroll-snap-align: end;
 }
 
 .chat-view__date {
